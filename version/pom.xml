@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <groupId>com.wt.master</groupId>
+        <artifactId>root</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
+
+
+    <groupId>com.wt.master</groupId>
+    <artifactId>version</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+    <name>version</name>
+    <!--版本具体定义-->
+    <properties>
+        <analyze.api.version>1.0-SNAPSHOT</analyze.api.version>
+        <mybatis.springboot.version>1.3.2</mybatis.springboot.version>
+        <kylin.jdbc.version>2.0.0</kylin.jdbc.version>
+        <mysql.jdbc.version>5.1.38</mysql.jdbc.version>
+        <druid.version>1.1.14</druid.version>
+        <lombok.version>1.18.6</lombok.version>
+        <thrift.version>0.12.0</thrift.version>
+        <analyze.api.version>1.0-SNAPSHOT</analyze.api.version>
+        <org.aspectj.version>1.9.2</org.aspectj.version>
+        <druid.version>1.1.14</druid.version>
+        <org.json.version>20140107</org.json.version>
+        <net.sf.json.version>2.1</net.sf.json.version>
+        <fastjson.version>1.1.34</fastjson.version>
+        <version.master.core>1.0-SNAPSHOT</version.master.core>
+        <version.common.lang3>3.8.1</version.common.lang3>
+    </properties>
+    <!--子模块通过继承，在引入依赖的时候不需要定义版本-->
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>2.1.3.RELEASE</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!--mybatis持久化框架-->
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.springboot.version}</version>
+            </dependency>
+
+            <!--druid连接池-->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            <!-- lombok框架 -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+                <scope>provided</scope>
+            </dependency>
+
+            <!-- rpc框架Thrift -->
+            <dependency>
+                <groupId>org.apache.thrift</groupId>
+                <artifactId>libthrift</artifactId>
+                <version>${thrift.version}</version>
+            </dependency>
+            <!--api-->
+            <dependency>
+                <groupId>com.aptech.bigdata</groupId>
+                <artifactId>analyze-api</artifactId>
+                <version>${analyze.api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.json</groupId>
+                <artifactId>json</artifactId>
+                <version>${org.json.version}</version>
+            </dependency>
+
+            <!-- kylin数据库驱动 -->
+            <dependency>
+                <groupId>org.apache.kylin</groupId>
+                <artifactId>kylin-jdbc</artifactId>
+                <version>${kylin.jdbc.version}</version>
+            </dependency>
+
+
+            <!--json-lib-->
+            <dependency>
+                <groupId>net.sf.json-lib</groupId>
+                <artifactId>json-lib</artifactId>
+                <version>${net.sf.json.version}</version>
+                <classifier>jdk15</classifier>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>fastjson</artifactId>
+                <version>${fastjson.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.aspectj</groupId>
+                <artifactId>aspectjweaver</artifactId>
+                <version>${org.aspectj.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.jdbc.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.wt.master</groupId>
+                <artifactId>core</artifactId>
+                <version>${version.master.core}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.apache.commons</groupId>
+                <artifactId>commons-lang3</artifactId>
+                <version>${version.common.lang3}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+</project>

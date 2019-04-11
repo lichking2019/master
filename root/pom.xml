@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.wt.master</groupId>
+    <artifactId>root</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <packaging>pom</packaging>
+
+    <name>root</name>
+    <!--同一定义编码格式和编译版本，所有继承的模块共享该设置-->
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.8</maven.compiler.source>
+        <maven.compiler.target>1.8</maven.compiler.target>
+    </properties>
+    <dependencies>
+
+    </dependencies>
+    <!--定义项目部署信息，在执行mvn deploy以后，会实用下面的配置-->
+    <distributionManagement>
+        <!--发布版部署位置-->
+        <repository>
+            <id>releases</id>
+            <url>http://172.17.11.52:8081/nexus/content/repositories/releases/</url>
+        </repository>
+        <!--快照部署位置-->
+        <snapshotRepository>
+            <id>snapshots</id>
+            <url>http://172.17.11.52:8081/nexus/content/repositories/snapshots/</url>
+        </snapshotRepository>
+    </distributionManagement>
+
+    <profiles>
+        <!--家里的环境-->
+        <profile>
+            <id>home</id>
+            <distributionManagement>
+                <!--发布版部署位置-->
+                <repository>
+                    <id>releases</id>
+                    <url>http://172.17.11.52:8081/nexus/content/repositories/releases/</url>
+                </repository>
+                <!--快照部署位置-->
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <url>http://172.17.11.52:8081/nexus/content/repositories/snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+        <!--公司环境-->
+        <profile>
+            <id>company</id>
+            <distributionManagement>
+                <!--发布版部署位置-->
+                <repository>
+                    <id>releases</id>
+                    <url>http://172.17.11.52:8081/nexus/content/repositories/releases/</url>
+                </repository>
+                <!--快照部署位置-->
+                <snapshotRepository>
+                    <id>snapshots</id>
+                    <url>http://172.17.11.52:8081/nexus/content/repositories/snapshots/</url>
+                </snapshotRepository>
+            </distributionManagement>
+        </profile>
+    </profiles>
+</project>
