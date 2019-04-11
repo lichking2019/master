@@ -1,11 +1,9 @@
 package com.wt.master.core.base.support;
 
-import com.wt.master.core.base.BaseMapper;
-
 import java.io.Serializable;
 import java.util.List;
 
-public abstract class ServiceSupport<T, M extends BaseMapper<T>> {
+public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
     /**
      * 获取Mapper由具体的实现类实现
      *

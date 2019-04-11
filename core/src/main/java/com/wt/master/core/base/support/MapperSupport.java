@@ -1,4 +1,4 @@
-package com.wt.master.core.base;
+package com.wt.master.core.base.support;
 
 import com.wt.master.core.helper.MapperSqlHelper;
 import org.apache.ibatis.annotations.InsertProvider;
@@ -13,7 +13,7 @@ import java.util.List;
  *
  * @param <T>
  */
-public interface BaseMapper<T> {
+public interface MapperSupport<T> {
     String ENTITY = "entity";
     String ENTITIES = "entities";
     String ID = "id";
@@ -46,6 +46,7 @@ public interface BaseMapper<T> {
      *
      * @param id 实体ID
      */
+
     void delete(@Param(ID) Serializable id);
 
     /**

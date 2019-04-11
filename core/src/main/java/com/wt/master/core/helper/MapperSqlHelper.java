@@ -7,9 +7,7 @@ import static org.apache.ibatis.jdbc.SqlBuilder.*;
 import static com.wt.master.core.reflect.ReflectUtil.*;
 import static com.wt.master.core.adapter.SqlParamReflectAdapter.*;
 
-import com.wt.master.core.adapter.SqlParamReflectAdapter;
-import com.wt.master.core.base.BaseMapper;
-import org.apache.ibatis.jdbc.SqlBuilder;
+import com.wt.master.core.base.support.MapperSupport;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -29,7 +27,7 @@ public class MapperSqlHelper {
     public String findAll(Map<String, Object> param) {
         //初始化，考虑多线程得因素
         BEGIN();
-        Object entity = param.get(BaseMapper.ENTITY);
+        Object entity = param.get(MapperSupport.ENTITY);
         //字段及值
         Map<String, Object> paramMap = getPropertyAndValue(entity);
         //获取表名
@@ -53,7 +51,7 @@ public class MapperSqlHelper {
      */
     public String add(Map<String,Object> param){
         BEGIN();
-        Object entity = param.get(BaseMapper.ENTITY);
+        Object entity = param.get(MapperSupport.ENTITY);
         //字段及值
         Map<String, Object> paramMap = getPropertyAndValue(entity);
         String tableName = getTableName(entity.getClass());
@@ -68,6 +66,6 @@ public class MapperSqlHelper {
     }
 
     private String columnValueFormat(String column){
-        return StringUtils.join("#{",BaseMapper.ENTITY,".",column,"}");
+        return StringUtils.join("#{", MapperSupport.ENTITY,".",column,"}");
     }
 }
