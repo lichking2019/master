@@ -30,10 +30,9 @@ import org.springframework.data.redis.core.RedisTemplate;
  */
 //声明这是一个配置类
 @Configuration
-@Import({DynamicDataSourceRegister.class})
 //扫描本模块bean
 @ComponentScan(basePackages = {"com.wt.**.*"})
-public class CommonApplicationContextConfig {
+public class CommonApplicationContextConfiguration {
 
     public static final String CONFIG_KYLIN_PROPERTIES = "config/kylin.properties";
     public static final String CONFIG_THRIFT_SERVER_PROPERTIES = "config/thriftServer.properties";
@@ -115,6 +114,4 @@ public class CommonApplicationContextConfig {
         template.setConnectionFactory(redisConnectionFactory);
         return template;
     }
-
-
 }

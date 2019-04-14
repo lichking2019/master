@@ -20,10 +20,9 @@ import org.springframework.stereotype.Component;
  */
 @Aspect
 @Order(-1)
-@Component
+//@Component 改为动态注入，不是所有情况都加载这个拦截器，在DynamicDataSourceConfiguration中进行容器注入
 @Slf4j
-public class DynamicDattaSourceAspect {
-
+public class DynamicDattaSourceInterceptor {
     /**
      * 改变数据源
      * @param joinPoint
