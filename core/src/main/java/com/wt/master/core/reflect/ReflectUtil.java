@@ -11,6 +11,9 @@ import java.util.*;
 
 /**
  * 反射工具类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:34:01 PM
  */
 public class ReflectUtil {
 

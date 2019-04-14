@@ -21,6 +21,8 @@ import java.util.Map;
 /**
  * mybatis SQL 语句提供
  * 思路，通过反射获取实体属性及值，然后利用mybatis的SQLbuilder工具拼SQL，返回给MyBatis
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:33:14 PM
  */
 public class MapperSqlHelper {
     /**

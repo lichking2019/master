@@ -15,6 +15,9 @@ import org.springframework.context.annotation.Import;
 
 /**
  * 动态数据源配置文件
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:30:18 PM
  */
 @Configuration
 @EnableConfigurationProperties(DynamicDataSourceProperties.class)

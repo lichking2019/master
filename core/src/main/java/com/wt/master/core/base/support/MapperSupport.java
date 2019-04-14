@@ -9,7 +9,8 @@ import java.util.List;
 /**
  * Mapper基类
  *
- * @param <T>
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:26:17 PM
  */
 public interface MapperSupport<T> {
     String ENTITY = "entity";

@@ -11,12 +11,10 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
- * @ProjectName: bigdata
- * @Package: com.aptech.bigdata.analyze.service.common.datasource
- * @Description: 拦截带有@TargetDataSource注解的方法，切换数据源
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-04-01 19:17
- * @Version: v1.0
+ * 拦截带有@TargetDataSource注解的方法，切换数据源
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:25:37 PM
  */
 @Aspect
 @Order(-1)

@@ -2,6 +2,9 @@ package com.wt.master.core.request;
 
 /**
  * 请求结果实体
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:34:15 PM
  */
 public class HttpResultEntity<T> {
     /**

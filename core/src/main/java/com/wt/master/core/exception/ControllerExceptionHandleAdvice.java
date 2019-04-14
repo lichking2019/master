@@ -11,6 +11,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  * Controller异常统一处理
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:32:51 PM
  */
 @RestControllerAdvice
 @Slf4j

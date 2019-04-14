@@ -15,17 +15,13 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * @ProjectName: bigdata
- * @Package: com.aptech.bigdata.analyze.service.common.datasource
- * @Description: 数据源注册，通过实现ImportBeanDefinitionRegistrar，在Spring容器启动的时候注册自定义的Bean
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-04-01 18:54
- * @Version: v1.0
+ * 数据源注册，通过实现ImportBeanDefinitionRegistrar，在Spring容器启动的时候注册自定义的Bean
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:32:31 PM
  */
 @Slf4j
 public class DynamicDataSourceRegister implements ImportBeanDefinitionRegistrar, EnvironmentAware {
-
-
     /**
      * 指定默认数据源(springboot2.0默认数据源是hikari如何想使用其他数据源可以自己配置)
      */

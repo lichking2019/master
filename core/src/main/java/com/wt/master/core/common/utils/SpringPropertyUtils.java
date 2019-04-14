@@ -9,12 +9,10 @@ import java.util.Map;
 import java.util.Properties;
 
 /**
- * @ProjectName: product
- * @Package: com.aptech.bigdata.efficiency.common.utils
- * @Description: 资源文件获取工具类
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-03-25 09:31
- * @Version: v1.0
+ * 属性文件工具类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:29:28 PM
  */
 public class SpringPropertyUtils extends PropertyPlaceholderConfigurer {
     private static Map<String,String> properties = new HashMap<>();

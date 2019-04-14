@@ -14,13 +14,12 @@ import org.springframework.stereotype.Component;
 import java.lang.reflect.Method;
 
 /**
- * @ProjectName: bigdata
- * @Package: com.wt.project.common.aop
- * @Description: service层拦截，记录耗时信息，参数信息，异常信息
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-04-02 08:40
- * @Version: v1.0
+ * service层拦截，记录耗时信息，参数信息，异常信息
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:25:53 PM
  */
+
 @Slf4j
 @Aspect
 @Order(2)

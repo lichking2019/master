@@ -2,6 +2,9 @@ package com.wt.master.core.request;
 
 /**
  * 返回结果处理类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:34:24 PM
  */
 public class HttpResultHandler {
 

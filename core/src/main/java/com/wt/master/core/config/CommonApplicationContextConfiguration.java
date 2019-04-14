@@ -21,12 +21,10 @@ import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
 /**
- * @ProjectName: product
- * @Package: com.aptech.bigdata.framework.configuration
- * @Description: Spring 上下文加载Bean配置类
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-03-22 13:58
- * @Version: v1.0
+ * Spring 上下文加载Bean配置类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:30:00 PM
  */
 //声明这是一个配置类
 @Configuration

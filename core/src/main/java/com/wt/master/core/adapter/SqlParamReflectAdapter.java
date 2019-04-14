@@ -14,6 +14,9 @@ import java.util.Map;
 
 /**
  * 反射适配，供拼装Sql的服务使用
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:19:39 PM
  */
 public class SqlParamReflectAdapter {
     /**
@@ -62,12 +65,13 @@ public class SqlParamReflectAdapter {
 
     /**
      * 获取主键名称
+     *
      * @param entityType 实体类型
      * @return 主键名称
      */
     public static String getPrimaryKeyName(Class entityType) {
         Field idField = getClassPropertyUnderAnnotation(entityType, Id.class);
-        Id idAnnotation = getFieldAnnotation(idField,Id.class);
+        Id idAnnotation = getFieldAnnotation(idField, Id.class);
         return idAnnotation.value();
     }
 

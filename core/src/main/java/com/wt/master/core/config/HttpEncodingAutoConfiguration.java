@@ -10,6 +10,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
+
+/**
+ * http请求编码处理
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:31:10 PM
+ */
+
 @Configuration
 //通过这个注解，可以使配置类使用@Autowired引入属性类
 @EnableConfigurationProperties(HttpEncodingProperties.class)

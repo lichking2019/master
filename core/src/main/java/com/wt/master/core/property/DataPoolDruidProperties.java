@@ -5,12 +5,10 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
 /**
- * @ProjectName: product
- * @Package: com.aptech.bigdata.efficiency.common.property
- * @Description: 阿里Druid数据库连接池 配置信息。类型安全的方式记在属性文件，只支持property类型的配置文件
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-03-26 08:58
- * @Version: v1.0
+ * 阿里Druid数据库连接池 配置信息。类型安全的方式记在属性文件，只支持property类型的配置文件
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:33:39 PM
  */
 @Component
 @ConfigurationProperties(prefix = "druid.pool")

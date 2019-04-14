@@ -8,6 +8,9 @@ import java.util.Date;
 
 /**
  * 实体基类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:27:48 PM
  */
 @Data
 public class BaseEntity implements Serializable ,Cloneable{

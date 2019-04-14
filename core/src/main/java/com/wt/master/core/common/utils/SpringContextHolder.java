@@ -9,12 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ProjectName: bigdata
- * @Package: com.wt.project.common.utils
- * @Description:
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-03-29 15:32
- * @Version: v1.0
+ * spring容器工具类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:28:59 PM
  */
 @Component
 public class SpringContextHolder implements ApplicationContextAware {

@@ -4,8 +4,10 @@ import java.io.Serializable;
 import java.util.List;
 
 /**
- * 服务基类，提供通用的方法
+ * service 抽象，定义通用的接口
  * @param <T> 服务对应的实体类型
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:28:03 PM
  */
 public interface BaseService<T> {
 

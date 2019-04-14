@@ -3,6 +3,13 @@ package com.wt.master.core.base.support;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * service基类
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:26:40 PM
+ */
+
 public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
     /**
      * 获取Mapper由具体的实现类实现

@@ -6,12 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * @ProjectName: bigdata
- * @Package: com.aptech.bigdata.analyze.service.common.datasource
- * @Description:
- * @Author: lichking2018@aliyun.com
- * @CreateDate: 2019-04-01 18:51
- * @Version: v1.0
+ * 持有数据源
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 14, 2019 at 9:32:05 PM
  */
 @Slf4j
 public class DynamicDataSourceContextHolder {
