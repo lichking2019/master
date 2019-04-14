@@ -1,10 +1,10 @@
 # master
 ## 描述
 - core 核心模块
-   - aop定义
+   - aop定义（aop包）
       - 日志切面
       - 异常切面
-   - 抽象
+   - 抽象（base包）
       - controller抽象，封装返回结果对象|controler异常通知器
       - service抽象，为业务模块提供通用的业务逻辑，如增、删、改、查等
       - mapper抽象，为业务模块提供通用的持久化逻辑，如增、删、改、查等。通过反射技术结合Mybatis的注解，提供通用的SQL
@@ -18,7 +18,10 @@
          - druid数据源、监视器配置
          - 动态数据源注册器 引入
          - bean扫描目录的定义，扫描范围是com.wt 下属的所有包
-   - 多数据源
+   - 多数据源（datasource包）
+      - 核心代码是DynamicDataSource，通过继承Springboot提供的DynamicDataSource，来实现多数据源
+      - 定义了aop切面DynamicDattaSourceInterceptor，拦截方法调用，发现有指定的@TargetDataSource注解，就会将当前线程的数据源指定为注解指定的数据源
+      - 多数据源相关的配置类，利用了Springboot的动态配置特性，定义spring.factories文件指定DynamicDataSourceConfiguration配置类，根据配置文件中的slave.enable的值决定是否加载动态数据源的相关配置
    - 反射工具
 - j2ee 依赖管理，添加必要的web项目依赖
 - root maven构建方式定义
