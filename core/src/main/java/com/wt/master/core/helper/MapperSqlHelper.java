@@ -8,13 +8,11 @@ import static com.wt.master.core.reflect.ReflectUtil.*;
 import static com.wt.master.core.adapter.SqlParamReflectAdapter.*;
 
 import com.wt.master.core.annotation.Id;
-import com.wt.master.core.annotation.Ttransparent;
+import com.wt.master.core.annotation.Transparent;
 import com.wt.master.core.base.support.MapperSupport;
 
 import org.apache.commons.lang3.StringUtils;
-import org.apache.ibatis.jdbc.SQL;
 
-import javax.swing.table.TableRowSorter;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -261,6 +259,6 @@ public class MapperSqlHelper {
      * @return 是否忽略
      */
     private boolean isIgnore(Field field) {
-        return field.isAnnotationPresent(Ttransparent.class) || field.isAnnotationPresent(Id.class);
+        return field.isAnnotationPresent(Transparent.class) || field.isAnnotationPresent(Id.class);
     }
 }

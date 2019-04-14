@@ -1,4 +1,4 @@
-package com.wt.master.core.datasource;
+package com.wt.master.core.annotation;
 
 import java.lang.annotation.*;
 

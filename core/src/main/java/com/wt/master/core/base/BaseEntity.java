@@ -1,6 +1,6 @@
 package com.wt.master.core.base;
 
-import com.wt.master.core.annotation.Ttransparent;
+import com.wt.master.core.annotation.Transparent;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -22,7 +22,7 @@ public class BaseEntity implements Serializable ,Cloneable{
     /**
      * 创建时间
      */
-    @Ttransparent
+    @Transparent
     private Date createDateTime;
     /**
      * 修改人ID
@@ -39,6 +39,6 @@ public class BaseEntity implements Serializable ,Cloneable{
     /**
      * 删除标识
      */
-    @Ttransparent
+    @Transparent
     private Boolean deleteFlag;
 }

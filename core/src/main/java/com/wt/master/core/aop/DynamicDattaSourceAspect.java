@@ -1,7 +1,7 @@
 package com.wt.master.core.aop;
 
 import com.wt.master.core.datasource.DynamicDataSourceContextHolder;
-import com.wt.master.core.datasource.TargetDataSource;
+import com.wt.master.core.annotation.TargetDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
