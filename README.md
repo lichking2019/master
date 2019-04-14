@@ -12,6 +12,12 @@
    - 通用工具
       - Spring上下文工具
       - Spring属性文件工具
+   - 配置
+      - Http请求过滤器条件注入，根据配置文件中定义的spring.http.encoding的配置，动态创建CharacterEncodingFilter
+      - 通用配置
+         - druid数据源、监视器配置
+         - 动态数据源注册器 引入
+         - bean扫描目录的定义，扫描范围是com.wt 下属的所有包
    - 多数据源
    - 反射工具
 - j2ee 依赖管理，添加必要的web项目依赖
