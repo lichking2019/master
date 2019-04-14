@@ -5,6 +5,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @ProjectName: bigdata
  * @Package: com.wt.project.common.utils
@@ -30,5 +33,10 @@ public class SpringContextHolder implements ApplicationContextAware {
     public static <T> T getBean(Class<T> beanType){
         return applicationContext.getBean(beanType);
     }
-
+    public static void main(String[] args){
+        List<String> a = new ArrayList<>();
+        a.add("dddd");
+        a.add("eee");
+        System.out.println(a.toArray());
+    }
 }

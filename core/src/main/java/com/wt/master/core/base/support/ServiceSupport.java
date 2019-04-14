@@ -11,6 +11,8 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      */
     protected abstract M getMapper();
 
+    protected abstract Class<T> getEntityType();
+
     /**
      * 查询所有实体信息
      *
@@ -33,9 +35,10 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      * 物理删除实体
      *
      * @param id 实体ID
+     * @param entityType 实体类型
      */
     public void delete(Serializable id) {
-        getMapper().delete(id);
+        getMapper().delete(id,getEntityType());
     }
 
     /**
@@ -54,7 +57,7 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      * @return
      */
     public T findById(Serializable entityId) {
-        return getMapper().findById(entityId);
+        return getMapper().findById(entityId,getEntityType());
     }
 
     /**
@@ -64,7 +67,7 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      * @return 删除的实体ID
      */
     public int logicDelete(Serializable entityId) {
-        return getMapper().logicDelete(entityId);
+        return getMapper().logicDelete(entityId,getEntityType());
     }
 
     /**
@@ -73,7 +76,7 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      * @param entityList 实体信息集合
      */
     public void addBatch(List<T> entityList) {
-        getMapper().addBatch(entityList);
+        getMapper().addBatch(entityList,getEntityType());
     }
 
     /**
@@ -82,6 +85,6 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      * @param entityList 实体信息集合
      */
     public void updateBatch(List<T> entityList) {
-        getMapper().updateBatch(entityList);
+        getMapper().updateBatch(entityList,getEntityType());
     }
 }

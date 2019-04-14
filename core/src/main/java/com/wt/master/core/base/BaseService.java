@@ -24,6 +24,7 @@ public interface BaseService<T> {
     /**
      * 物理删除实体
      * @param id 实体ID
+     * @param entityType 实体类型
      */
     public void delete(Serializable id);
 

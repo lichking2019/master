@@ -32,9 +32,9 @@ public abstract class BaseController<T,S extends BaseService<T>> {
         return getSuccessResult(entity);
     }
 
-    @DeleteMapping(value = "/delete/{id}")
-    public HttpResultEntity delete(@PathVariable("id") Integer userId) {
-        getService().delete(userId);
+    @DeleteMapping(value = "/delete/{entityId}")
+    public HttpResultEntity delete(@PathVariable("entityId") Integer entityId) {
+        getService().delete(entityId);
         return getSuccessResult();
     }
 
@@ -55,14 +55,14 @@ public abstract class BaseController<T,S extends BaseService<T>> {
     }
 
     @PostMapping(value = "/addBatch")
-    public HttpResultEntity addBatch(@RequestBody List<T> securityUserList){
-        getService().addBatch(securityUserList);
+    public HttpResultEntity addBatch(@RequestBody List<T> entityList){
+        getService().addBatch(entityList);
         return getSuccessResult();
     }
 
     @PutMapping(value="/updateBatch")
-    public HttpResultEntity updateBatch(@RequestBody List<T> securityUserList){
-        getService().updateBatch(securityUserList);
+    public HttpResultEntity updateBatch(@RequestBody List<T> entityList){
+        getService().updateBatch(entityList);
         return getSuccessResult();
     }
 
