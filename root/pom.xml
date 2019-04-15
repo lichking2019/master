@@ -34,7 +34,7 @@
     </distributionManagement>
 
     <profiles>
-        <!--家里的环境-->
+        <!--环境1-->
         <profile>
             <id>home</id>
             <distributionManagement>
@@ -50,7 +50,7 @@
                 </snapshotRepository>
             </distributionManagement>
         </profile>
-        <!--公司环境-->
+        <!--环境2-->
         <profile>
             <id>company</id>
             <distributionManagement>
