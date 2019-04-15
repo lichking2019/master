@@ -100,16 +100,16 @@ public class CommonApplicationContextConfiguration {
         return new JedisConnectionFactory();
     }
 
-    /**
-     * Spring提供的redis操作模板
-     *
-     * @param redisConnectionFactory
-     * @return
-     */
-    @Bean
-    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-        RedisTemplate<Object, Object> template = new RedisTemplate<>();
-        template.setConnectionFactory(redisConnectionFactory);
-        return template;
-    }
+//    /**
+//     * Spring提供的redis操作模板
+//     *
+//     * @param redisConnectionFactory
+//     * @return
+//     */
+//    @Bean
+//    public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+//        RedisTemplate<Object, Object> template = new RedisTemplate<>();
+//        template.setConnectionFactory(redisConnectionFactory);
+//        return template;
+//    }
 }
