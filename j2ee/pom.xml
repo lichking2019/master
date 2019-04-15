@@ -36,6 +36,13 @@
                 </exclusion>
             </exclusions>
         </dependency>
+
+        <!--websocket依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-websocket</artifactId>
+        </dependency>
+
         <!--使用@ConfigurationProperties 通过类安全的方式加载配置文件，必须引入这个-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
