@@ -23,6 +23,9 @@
       - 定义了aop切面DynamicDattaSourceInterceptor，拦截方法调用，发现有指定的@TargetDataSource注解，就会将当前线程的数据源指定为注解指定的数据源
       - 多数据源相关的配置类，利用了Springboot的动态配置特性，定义spring.factories文件指定DynamicDataSourceConfiguration配置类，根据配置文件中的slave.enable的值决定是否加载动态数据源的相关配置
    - 反射工具
+   - 缓存
+      - 将redis、ehcache的配置，抽象到框架中
+      - 结合Springboot的条件注解，判断只有当配置文件中定义了响应的缓存，对应的配置才会加载，使用com.wt.framework.config.cache.enable[true|false]|type[redis|ehcache]
 - j2ee 依赖管理，添加必要的web项目依赖
 - root maven构建方式定义
 - version 管理依赖的版本
