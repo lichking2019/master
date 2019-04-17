@@ -18,6 +18,8 @@ public interface MapperSupport<T> {
     String ID = "id";
     String ENTITYTYPE = "entityType";
 
+     Serializable String=1;
+
     /**
      * 查询所有实体
      *
