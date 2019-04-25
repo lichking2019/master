@@ -8,6 +8,8 @@
       - controller抽象，封装返回结果对象|controler异常通知器
       - service抽象，为业务模块提供通用的业务逻辑，如增、删、改、查等
       - mapper抽象，为业务模块提供通用的持久化逻辑，如增、删、改、查等。通过反射技术结合Mybatis的注解，提供通用的SQL
+         - 对mysql的支持
+         - 对mongodb的支持
       - entity抽象，定义通用的字段，如创建人、创建时间、修改人、修改时间、删除标识等
    - 通用工具
       - Spring上下文工具
@@ -29,3 +31,19 @@
 - j2ee 依赖管理，添加必要的web项目依赖
 - root maven构建方式定义
 - version 管理依赖的版本
+
+- 配置
+   ```
+   com:
+     wt:
+       framework:
+         config:
+           cache:
+             #开启缓存
+             enable: true
+             #类型 目前支持redis|ehcache
+             type: redis
+           #切换持久层（需要应用端的配置文件支持，扫描不同的持久层目录）
+           dao:
+               type: center
+   ```
