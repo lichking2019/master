@@ -1,5 +1,6 @@
 package com.wt.master.core.base.support;
 
+import com.wt.master.core.base.BaseDao;
 import com.wt.master.core.base.BaseService;
 import com.wt.master.core.helper.QueryHelper;
 
@@ -14,7 +15,7 @@ import java.util.Map;
  * @date Apr 14, 2019 at 9:26:40 PM
  */
 
-public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements BaseService<T> {
+public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseService<T> {
     /**
      * 获取Mapper由具体的实现类实现
      *
@@ -22,6 +23,10 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      */
     protected abstract M getMapper();
 
+    /**
+     * 获取实体类型
+     * @return
+     */
     protected abstract Class<T> getEntityType();
 
     /**
@@ -29,17 +34,20 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      *
      * @return 实体集合
      */
+    @Override
     public List<T> findAll(T entity) {
         return getMapper().findAll(entity);
     }
 
     /**
      * 根据查询条件，查询所有的实体信息
+     *
      * @param queryHelper sql辅助类
      * @return
      */
-    public List<Map<String,Object>> findAll(QueryHelper queryHelper, Map<String,Object> param){
-        return getMapper().findAll_custom(queryHelper,param,getEntityType());
+    @Override
+    public List<Map<String, Object>> findAll(QueryHelper queryHelper, Map<String, Object> param) {
+        return getMapper().findallCustom(queryHelper, param, getEntityType());
     }
 
     /**
@@ -47,6 +55,7 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      *
      * @param entity 实体信息
      */
+    @Override
     public void add(T entity) {
         getMapper().add(entity);
     }
@@ -54,11 +63,13 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
     /**
      * 物理删除实体
      *
-     * @param id 实体ID
+     * @param id         实体ID
      * @param entityType 实体类型
      */
+
+    @Override
     public void delete(Serializable id) {
-        getMapper().delete(id,getEntityType());
+        getMapper().delete(id, getEntityType());
     }
 
     /**
@@ -66,6 +77,7 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      *
      * @param entity 实体信息
      */
+    @Override
     public void update(T entity) {
         getMapper().update(entity);
     }
@@ -76,8 +88,9 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      * @param entityId 实体ID
      * @return
      */
+    @Override
     public T findById(Serializable entityId) {
-        return getMapper().findById(entityId,getEntityType());
+        return getMapper().findById(entityId, getEntityType());
     }
 
     /**
@@ -86,8 +99,9 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      * @param entityId
      * @return 删除的实体ID
      */
+    @Override
     public int logicDelete(Serializable entityId) {
-        return getMapper().logicDelete(entityId,getEntityType());
+        return getMapper().logicDelete(entityId, getEntityType());
     }
 
     /**
@@ -95,8 +109,9 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      *
      * @param entityList 实体信息集合
      */
+    @Override
     public void addBatch(List<T> entityList) {
-        getMapper().addBatch(entityList,getEntityType());
+        getMapper().addBatch(entityList, getEntityType());
     }
 
     /**
@@ -104,7 +119,8 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements B
      *
      * @param entityList 实体信息集合
      */
+    @Override
     public void updateBatch(List<T> entityList) {
-        getMapper().updateBatch(entityList,getEntityType());
+        getMapper().updateBatch(entityList, getEntityType());
     }
 }

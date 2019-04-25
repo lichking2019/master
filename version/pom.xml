@@ -15,7 +15,7 @@
     <artifactId>version</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>version</name>
+    <name>master-version</name>
     <!--版本具体定义-->
     <properties>
         <analyze.api.version>1.0-SNAPSHOT</analyze.api.version>

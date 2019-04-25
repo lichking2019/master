@@ -76,6 +76,23 @@ public class SqlParamReflectAdapter {
     }
 
     /**
+     * 获取主键的值
+     * @param entity
+     * @return
+     */
+    public static Object getPrimaryKeyValue(Object entity) {
+        Field idField = getClassPropertyUnderAnnotation(entity.getClass(), Id.class);
+        try {
+            idField.setAccessible(true);
+            return idField.get(entity);
+        } catch (IllegalAccessException e) {
+            // TODO: 2019-04-25 考虑异常封装
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    /**
      * 获取实体对应的数据库表名
      *
      * @param entityClass 实体类型

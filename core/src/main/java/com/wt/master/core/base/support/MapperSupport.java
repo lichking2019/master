@@ -1,5 +1,6 @@
 package com.wt.master.core.base.support;
 
+import com.wt.master.core.base.BaseDao;
 import com.wt.master.core.helper.MapperSqlHelper;
 import com.wt.master.core.helper.QueryHelper;
 import org.apache.ibatis.annotations.*;
@@ -9,12 +10,12 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Mapper基类
+ * Mybatis持久层基类
  *
  * @author lichking2019@aliyun.com
  * @date Apr 14, 2019 at 9:26:17 PM
  */
-public interface MapperSupport<T> {
+public interface MapperSupport<T> extends BaseDao<T> {
     String ENTITY = "entity";
     String ENTITIES = "entities";
     String ID = "id";
@@ -27,23 +28,27 @@ public interface MapperSupport<T> {
      *
      * @return 实体集合
      */
+    @Override
     @SelectProvider(type = MapperSqlHelper.class, method = "findAll")
     List<T> findAll(@Param(ENTITY) T entity);
 
     /**
      * 查询所有实体
+     *
      * @param queryHelper 查询辅助类
-     * @param enrityType 实体类型
+     * @param enrityType  实体类型
      * @return
      */
+    @Override
     @SelectProvider(type = MapperSqlHelper.class, method = "findAll_custom")
-    List<Map<String,Object>> findAll_custom(@Param(QUERY_HELPER) QueryHelper queryHelper, @Param(PARAM) Map<String,Object> param, @Param(ENTITYTYPE) Class<T> enrityType);
+    List<Map<String, Object>> findallCustom(@Param(QUERY_HELPER) QueryHelper queryHelper, @Param(PARAM) Map<String, Object> param, @Param(ENTITYTYPE) Class<T> enrityType);
 
     /**
      * 添加实体
      *
      * @param securityUser 实体信息
      */
+    @Override
     @InsertProvider(type = MapperSqlHelper.class, method = "add")
     void add(@Param(ENTITY) T entity);
 
@@ -52,6 +57,7 @@ public interface MapperSupport<T> {
      *
      * @param securityUserList 实体信息集合
      */
+    @Override
     @InsertProvider(type = MapperSqlHelper.class, method = "addBatch")
     void addBatch(@Param(ENTITIES) List<T> entityList, @Param(ENTITYTYPE) Class<T> entityType);
 
@@ -60,6 +66,7 @@ public interface MapperSupport<T> {
      *
      * @param id 实体ID
      */
+    @Override
     @DeleteProvider(type = MapperSqlHelper.class, method = "delete")
     void delete(@Param(ID) Serializable id, @Param(ENTITYTYPE) Class<T> entityType);
 
@@ -68,6 +75,7 @@ public interface MapperSupport<T> {
      *
      * @param securityUser 实体信息
      */
+    @Override
     @UpdateProvider(type = MapperSqlHelper.class, method = "update")
     void update(@Param(ENTITY) T entity);
 
@@ -76,6 +84,7 @@ public interface MapperSupport<T> {
      *
      * @param securityUserList 实体信息
      */
+    @Override
     @UpdateProvider(type = MapperSqlHelper.class, method = "updateBatch")
     void updateBatch(@Param(ENTITIES) List<T> entityList, @Param(ENTITYTYPE) Class<T> entityType);
 
@@ -85,7 +94,7 @@ public interface MapperSupport<T> {
      * @param userId 实体ID
      * @return
      */
-    // 【知识点】，Mybatis返回的查询结果不一定都是集合，如果要是使用单个对象接收，那么Mybatis会智能组装成单一对象，而不用List.get(0)
+    @Override
     @SelectProvider(type = MapperSqlHelper.class, method = "findById")
     T findById(@Param(ID) Serializable entityId, @Param(ENTITYTYPE) Class<T> entityType);
 
@@ -94,6 +103,7 @@ public interface MapperSupport<T> {
      *
      * @param userId 实体ID
      */
+    @Override
     @UpdateProvider(type = MapperSqlHelper.class, method = "logicDelete")
     int logicDelete(@Param(ID) Serializable entityId, @Param(ENTITYTYPE) Class<T> entityType);
 

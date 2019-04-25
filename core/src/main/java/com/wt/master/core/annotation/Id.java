@@ -10,6 +10,8 @@ import java.lang.annotation.Target;
  *
  * @author lichking2019@aliyun.com
  * @date Apr 14, 2019 at 9:20:11 PM
+ * update 2019-4-25
+ *  增加Spring data Mongo 的 Id 注解，兼容Mongo处理
  */
 
 /**
@@ -19,6 +21,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.FIELD)
 //保留到运行阶段
 @Retention(RetentionPolicy.RUNTIME)
+@org.springframework.data.annotation.Id
 public @interface Id {
     //必填，对应的数据库主键名称
     String value();

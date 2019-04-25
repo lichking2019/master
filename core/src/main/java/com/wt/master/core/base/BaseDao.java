@@ -1,0 +1,82 @@
+package com.wt.master.core.base;
+
+import com.wt.master.core.helper.QueryHelper;
+
+import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 持久层抽象，制定公共的协议
+ *
+ * @author lichking2019@aliyun.com
+ * @date Apr 25, 2019 at 12:42:00 PM
+ */
+public interface BaseDao<T> {
+
+    /**
+     * 查询所有实体
+     * @param entity 实体
+     * @return
+     */
+    List<T> findAll(T entity);
+
+    /**
+     * 自定义查询
+     * @param queryHelper 查询语句
+     * @param param 参数
+     * @param enrityType 实体类型
+     * @return
+     */
+    List<Map<String, Object>> findallCustom(QueryHelper queryHelper, Map<String, Object> param, Class<T> enrityType);
+
+    /**
+     * 添加实体
+     *
+     * @param entity 实体信息
+     */
+    void add(T entity);
+
+    /**
+     * 批量添加实体
+     * @param entityList 实体集合
+     * @param entityType 实体类型
+     */
+    void addBatch(List<T> entityList, Class<T> entityType);
+
+    /**
+     * 删除实体
+     * @param id 实体ID
+     * @param entityType 实体类型
+     */
+    void delete(Serializable id, Class<T> entityType);
+
+    /**
+     * 更新实体
+     * @param entity 实体
+     */
+    void update(T entity);
+
+    /**
+     * 批量更新
+     * @param entityList 实体集合
+     * @param entityType 实体类型
+     */
+    void updateBatch(List<T> entityList, Class<T> entityType);
+
+    /**
+     * 根据实体ID 查询实体
+     * @param entityId 实体ID
+     * @param entityType 实体类型
+     * @return
+     */
+    T findById(Serializable entityId, Class<T> entityType);
+
+    /**
+     * 逻辑删除
+     * @param entityId 实体ID
+     * @param entityType 实体类型
+     * @return
+     */
+    int logicDelete(Serializable entityId, Class<T> entityType);
+}
