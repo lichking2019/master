@@ -1,7 +1,11 @@
 package com.wt.master.core.base.support;
 
+import com.wt.master.core.base.BaseService;
+import com.wt.master.core.helper.QueryHelper;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * service基类
@@ -10,7 +14,7 @@ import java.util.List;
  * @date Apr 14, 2019 at 9:26:40 PM
  */
 
-public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
+public abstract class ServiceSupport<T, M extends MapperSupport<T>> implements BaseService<T> {
     /**
      * 获取Mapper由具体的实现类实现
      *
@@ -27,6 +31,15 @@ public abstract class ServiceSupport<T, M extends MapperSupport<T>> {
      */
     public List<T> findAll(T entity) {
         return getMapper().findAll(entity);
+    }
+
+    /**
+     * 根据查询条件，查询所有的实体信息
+     * @param queryHelper sql辅助类
+     * @return
+     */
+    public List<Map<String,Object>> findAll(QueryHelper queryHelper, Map<String,Object> param){
+        return getMapper().findAll_custom(queryHelper,param,getEntityType());
     }
 
     /**

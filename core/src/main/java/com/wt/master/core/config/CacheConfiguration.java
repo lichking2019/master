@@ -33,27 +33,27 @@ import java.time.Duration;
 @EnableCaching
 @Slf4j
 public class CacheConfiguration extends CachingConfigurerSupport {
-    /**
-     * key生成规则
-     *
-     * @return
-     */
-    @Bean
-    @Override
-    public KeyGenerator keyGenerator() {
-        return (target, method, params) -> {
-            StringBuilder keyBuilder = new StringBuilder();
-            keyBuilder.append(target.getClass().getSimpleName());
-            keyBuilder.append(".");
-            keyBuilder.append(method.getName());
-            for (Object param : params) {
-                keyBuilder.append("." + String.valueOf(param));
-            }
-            String redisKey = keyBuilder.toString();
-            log.info("生成redisKey：[{}]", redisKey);
-            return redisKey;
-        };
-    }
+//    /**
+//     * key生成规则
+//     *
+//     * @return
+//     */
+//    @Bean
+//    @Override
+//    public KeyGenerator keyGenerator() {
+//        return (target, method, params) -> {
+//            StringBuilder keyBuilder = new StringBuilder();
+//            keyBuilder.append(target.getClass().getSimpleName());
+//            keyBuilder.append(".");
+//            keyBuilder.append(method.getName());
+//            for (Object param : params) {
+//                keyBuilder.append("." + String.valueOf(param));
+//            }
+//            String redisKey = keyBuilder.toString();
+//            log.info("生成redisKey：[{}]", redisKey);
+//            return redisKey;
+//        };
+//    }
 
     /**
      * Spring提供的redis操作模板，定义序列化方式
@@ -93,10 +93,14 @@ public class CacheConfiguration extends CachingConfigurerSupport {
     @ConditionalOnMissingBean(CacheService.class)
     @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'.equals('redis')")
     public CacheManager redisCacheManager(RedisTemplate redisTemplate, JedisConnectionFactory factory) {
+        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
+        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+
         //初始化一个RedisCacheWriter
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisTemplate.getConnectionFactory());
         RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(redisTemplate.getValueSerializer()));//设置序列化
+                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
+                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));//设置序列化
         //设置默认超过期时间是30秒
         redisCacheConfiguration.entryTtl(Duration.ofSeconds(30));
         //初始化RedisCacheManager

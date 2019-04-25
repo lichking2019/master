@@ -1,7 +1,10 @@
 package com.wt.master.core.base;
 
+import com.wt.master.core.helper.QueryHelper;
+
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * service 抽象，定义通用的接口
@@ -16,6 +19,13 @@ public interface BaseService<T> {
      * @return 实体集合
      */
     public List<T> findAll(T entity);
+
+    /**
+     * 查询所有的实体信息
+     * @param queryHelper sql辅助类
+     * @return
+     */
+    public List<Map<String,Object>> findAll(QueryHelper queryHelper, Map<String,Object> param);
 
     /**
      * 添加单个实体
@@ -61,4 +71,5 @@ public interface BaseService<T> {
      * @param entityList 实体信息集合
      */
     public void updateBatch(List<T> entityList);
+
 }

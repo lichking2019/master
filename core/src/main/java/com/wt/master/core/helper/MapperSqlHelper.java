@@ -84,6 +84,17 @@ public class MapperSqlHelper {
     }
 
     /**
+     * 自定义查询
+     * @param param
+     * @return
+     */
+    public String findAll_custom(Map<String, Object> param){
+        init(param);
+        QueryHelper queryHelper = (QueryHelper)param.get(MapperSupport.QUERY_HELPER);
+        return queryHelper.getSQL(tableName);
+    }
+
+    /**
      * 根据主键查找数据
      *
      * @param param 参数

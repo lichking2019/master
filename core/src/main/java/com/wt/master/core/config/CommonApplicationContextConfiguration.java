@@ -11,6 +11,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.wt.master.core.common.utils.SpringPropertyUtils;
 import com.wt.master.core.datasource.DynamicDataSourceRegister;
 import com.wt.master.core.property.DataPoolDruidProperties;
+import com.wt.master.core.property.HttpEncodingProperties;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -43,6 +46,7 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Configuration
 //扫描本模块bean
 @ComponentScan(basePackages = {"com.wt.**.*"})
+@Slf4j
 public class CommonApplicationContextConfiguration {
 
     public static final String CONFIG_KYLIN_PROPERTIES = "config/kylin.properties";

@@ -1,10 +1,12 @@
 package com.wt.master.core.base.support;
 
 import com.wt.master.core.helper.MapperSqlHelper;
+import com.wt.master.core.helper.QueryHelper;
 import org.apache.ibatis.annotations.*;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Mapper基类
@@ -17,8 +19,8 @@ public interface MapperSupport<T> {
     String ENTITIES = "entities";
     String ID = "id";
     String ENTITYTYPE = "entityType";
-
-     Serializable String=1;
+    String PARAM = "param";
+    String QUERY_HELPER = "queryHelper";
 
     /**
      * 查询所有实体
@@ -27,6 +29,15 @@ public interface MapperSupport<T> {
      */
     @SelectProvider(type = MapperSqlHelper.class, method = "findAll")
     List<T> findAll(@Param(ENTITY) T entity);
+
+    /**
+     * 查询所有实体
+     * @param queryHelper 查询辅助类
+     * @param enrityType 实体类型
+     * @return
+     */
+    @SelectProvider(type = MapperSqlHelper.class, method = "findAll_custom")
+    List<Map<String,Object>> findAll_custom(@Param(QUERY_HELPER) QueryHelper queryHelper, @Param(PARAM) Map<String,Object> param, @Param(ENTITYTYPE) Class<T> enrityType);
 
     /**
      * 添加实体
@@ -85,4 +96,6 @@ public interface MapperSupport<T> {
      */
     @UpdateProvider(type = MapperSqlHelper.class, method = "logicDelete")
     int logicDelete(@Param(ID) Serializable entityId, @Param(ENTITYTYPE) Class<T> entityType);
+
+
 }
