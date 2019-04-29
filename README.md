@@ -43,6 +43,15 @@
              enable: true
              #类型 目前支持redis|ehcache
              type: redis
+           #swagger开关，默认关闭
+           swagger:
+             enable: true
+           #跨域配置
+           crossDomain:
+             enable: true
+             allowedOrgin: '*'
+             allowedHeader: '*'
+             allowedMethod: '*'
            #切换持久层（需要应用端的配置文件支持，扫描不同的持久层目录）
            dao:
                type: center
