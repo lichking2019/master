@@ -1,10 +1,15 @@
 package com.wt.master.core.base.support;
 
+import com.wt.master.core.adapter.SqlParamReflectAdapter;
 import com.wt.master.core.base.BaseDao;
+import com.wt.master.core.base.BaseEntity;
 import com.wt.master.core.base.BaseService;
+import com.wt.master.core.common.utils.UUIDUtils;
 import com.wt.master.core.helper.QueryHelper;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -23,11 +28,20 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
      */
     protected abstract M getMapper();
 
-    /**
-     * 获取实体类型
-     * @return
-     */
     protected abstract Class<T> getEntityType();
+
+    @Override
+    public List<T> findAll(){
+        try {
+            T entity = getEntityType().newInstance();
+            return getMapper().findAll(entity);
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return new ArrayList<T>();
+    }
 
     /**
      * 查询所有实体信息
@@ -41,14 +55,24 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
 
     /**
      * 根据查询条件，查询所有的实体信息
-     *
      * @param queryHelper sql辅助类
      * @return
      */
     @Override
-    public List<Map<String, Object>> findAll(QueryHelper queryHelper, Map<String, Object> param) {
-        return getMapper().findallCustom(queryHelper, param, getEntityType());
+    public List<Map<String,Object>> findAll(QueryHelper queryHelper, Map<String,Object> param){
+        return getMapper().findallCustom(queryHelper,param,getEntityType());
     }
+
+    /**
+     * 条件查询所有实体
+     * @param queryHelper
+     * @param param
+     * @return
+     */
+    public List<T> findAllEntityCustom(QueryHelper queryHelper, Map<String,Object> param){
+        return getMapper().findAllEntityCustom(queryHelper,param,getEntityType());
+    }
+
 
     /**
      * 添加单个实体
@@ -57,19 +81,41 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
      */
     @Override
     public void add(T entity) {
+        initEntityBaseInfo(entity);
         getMapper().add(entity);
+    }
+
+    /**
+     * 批量初始化实体的基础信息
+     */
+    private void initEntityBaseInfoBatch(List<T> entityList){
+        for (int i = 0; i < entityList.size(); i++) {
+            initEntityBaseInfo(entityList.get(i));
+        }
+    }
+
+    /**
+     * 初始化实体的基础信息
+     */
+    private void initEntityBaseInfo(T entity){
+        //设置主键
+        SqlParamReflectAdapter.setPrimeryKey(entity, UUIDUtils.getUUID32());
+        //设置创建时间、创建人信息
+        ((BaseEntity)entity).setCreateDateTime(new Date());
+        ((BaseEntity)entity).setFounderId("-1");
+        ((BaseEntity)entity).setFounderName("系统创建");
     }
 
     /**
      * 物理删除实体
      *
-     * @param id         实体ID
+     * @param id 实体ID
      * @param entityType 实体类型
      */
 
     @Override
     public void delete(Serializable id) {
-        getMapper().delete(id, getEntityType());
+        getMapper().delete(id,getEntityType());
     }
 
     /**
@@ -90,7 +136,7 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
      */
     @Override
     public T findById(Serializable entityId) {
-        return getMapper().findById(entityId, getEntityType());
+        return getMapper().findById(entityId,getEntityType());
     }
 
     /**
@@ -101,7 +147,7 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
      */
     @Override
     public int logicDelete(Serializable entityId) {
-        return getMapper().logicDelete(entityId, getEntityType());
+        return getMapper().logicDelete(entityId,getEntityType());
     }
 
     /**
@@ -111,7 +157,8 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
      */
     @Override
     public void addBatch(List<T> entityList) {
-        getMapper().addBatch(entityList, getEntityType());
+        initEntityBaseInfoBatch(entityList);
+        getMapper().addBatch(entityList,getEntityType());
     }
 
     /**
@@ -121,6 +168,6 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
      */
     @Override
     public void updateBatch(List<T> entityList) {
-        getMapper().updateBatch(entityList, getEntityType());
+        getMapper().updateBatch(entityList,getEntityType());
     }
 }

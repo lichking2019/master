@@ -23,12 +23,21 @@ public interface BaseDao<T> {
 
     /**
      * 自定义查询
-     * @param queryHelper 查询语句
+     * @param queryHelper 查询器
      * @param param 参数
      * @param enrityType 实体类型
      * @return
      */
     List<Map<String, Object>> findallCustom(QueryHelper queryHelper, Map<String, Object> param, Class<T> enrityType);
+
+    /**
+     * 自定义查询，所有实体
+     * @param queryHelper 查询器
+     * @param param 入参
+     * @param enrityType 实体类型
+     * @return
+     */
+    List<T> findAllEntityCustom(QueryHelper queryHelper, Map<String, Object> param, Class<T> enrityType);
 
     /**
      * 添加实体

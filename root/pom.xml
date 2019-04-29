@@ -20,18 +20,18 @@
 
     </dependencies>
     <!--定义项目部署信息，在执行mvn deploy以后，会实用下面的配置-->
-    <distributionManagement>
-        <!--发布版部署位置-->
-        <repository>
-            <id>releases</id>
-            <url>http://192.168.0.106:8081/nexus/content/repositories/releases/</url>
-        </repository>
-        <!--快照部署位置-->
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://192.168.0.106:8081/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
+    <!--<distributionManagement>-->
+        <!--&lt;!&ndash;发布版部署位置&ndash;&gt;-->
+        <!--<repository>-->
+            <!--<id>releases</id>-->
+            <!--<url>http://192.168.0.106:8081/nexus/content/repositories/releases/</url>-->
+        <!--</repository>-->
+        <!--&lt;!&ndash;快照部署位置&ndash;&gt;-->
+        <!--<snapshotRepository>-->
+            <!--<id>snapshots</id>-->
+            <!--<url>http://192.168.0.106:8081/nexus/content/repositories/snapshots/</url>-->
+        <!--</snapshotRepository>-->
+    <!--</distributionManagement>-->
 
     <profiles>
         <!--环境1-->
@@ -41,12 +41,12 @@
                 <!--发布版部署位置-->
                 <repository>
                     <id>releases</id>
-                    <url>http://192.168.0.107:8081/nexus/content/repositories/releases/</url>
+                    <url>http://192.168.0.163:8081/nexus/content/repositories/releases/</url>
                 </repository>
                 <!--快照部署位置-->
                 <snapshotRepository>
                     <id>snapshots</id>
-                    <url>http://192.168.0.107:8081/nexus/content/repositories/snapshots/</url>
+                    <url>http://192.168.0.163:8081/nexus/content/repositories/snapshots/</url>
                 </snapshotRepository>
             </distributionManagement>
         </profile>

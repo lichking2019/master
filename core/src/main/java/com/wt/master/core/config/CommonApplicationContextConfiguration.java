@@ -49,9 +49,9 @@ import org.springframework.data.redis.serializer.StringRedisSerializer;
 @Slf4j
 public class CommonApplicationContextConfiguration {
 
-    public static final String CONFIG_KYLIN_PROPERTIES = "config/kylin.properties";
-    public static final String CONFIG_THRIFT_SERVER_PROPERTIES = "config/thriftServer.properties";
-    public static final String CONFIG_SYSTEM_INIT_PARAMETER_PROPERTIES = "config/systemInitParameter.properties";
+    private static final String CONFIG_KYLIN_PROPERTIES = "config/kylin.properties";
+    private static final String CONFIG_THRIFT_SERVER_PROPERTIES = "config/thriftServer.properties";
+    private static final String CONFIG_SYSTEM_INIT_PARAMETER_PROPERTIES = "config/systemInitParameter.properties";
 
     /**
      * 资源文件工具类

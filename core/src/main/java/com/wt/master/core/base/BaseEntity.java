@@ -17,7 +17,7 @@ public class BaseEntity implements Serializable ,Cloneable{
     /**
      * 创建人ID
      */
-    private Integer founderId;
+    private String founderId;
     /**
      * 创建人名称
      */
@@ -30,7 +30,7 @@ public class BaseEntity implements Serializable ,Cloneable{
     /**
      * 修改人ID
      */
-    private Integer modifierId;
+    private String modifierId;
     /**
      * 修改人
      */

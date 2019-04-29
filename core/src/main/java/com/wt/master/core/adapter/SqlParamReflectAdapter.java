@@ -7,6 +7,7 @@ import static com.wt.master.core.reflect.ReflectUtil.*;
 
 import org.springframework.util.Assert;
 
+import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.util.List;
@@ -75,11 +76,6 @@ public class SqlParamReflectAdapter {
         return idAnnotation.value();
     }
 
-    /**
-     * 获取主键的值
-     * @param entity
-     * @return
-     */
     public static Object getPrimaryKeyValue(Object entity) {
         Field idField = getClassPropertyUnderAnnotation(entity.getClass(), Id.class);
         try {
@@ -101,5 +97,20 @@ public class SqlParamReflectAdapter {
     public static String getTableName(Class entity) {
         Table classAnnotation = getClassAnnotation(entity, Table.class);
         return classAnnotation.tableName();
+    }
+
+    /**
+     * 设置实体主键的值
+     * @param entity
+     */
+    public static void setPrimeryKey(Object entity,String value){
+        Field idField = getClassPropertyUnderAnnotation(entity.getClass(), Id.class);
+        try {
+            idField.setAccessible(true);
+            idField.set(entity,value);
+        } catch (IllegalAccessException e) {
+            // TODO: 2019-04-26 考虑异常封装
+            e.printStackTrace();
+        }
     }
 }

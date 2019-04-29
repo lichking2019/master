@@ -272,6 +272,6 @@ public class MapperSqlHelper {
      * @return 是否忽略
      */
     private boolean isIgnore(Field field) {
-        return field.isAnnotationPresent(Transparent.class) || field.isAnnotationPresent(Id.class);
+        return field.isAnnotationPresent(Transparent.class);
     }
 }

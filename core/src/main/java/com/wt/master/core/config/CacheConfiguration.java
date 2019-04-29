@@ -33,32 +33,10 @@ import java.time.Duration;
 @EnableCaching
 @Slf4j
 public class CacheConfiguration extends CachingConfigurerSupport {
-//    /**
-//     * key生成规则
-//     *
-//     * @return
-//     */
-//    @Bean
-//    @Override
-//    public KeyGenerator keyGenerator() {
-//        return (target, method, params) -> {
-//            StringBuilder keyBuilder = new StringBuilder();
-//            keyBuilder.append(target.getClass().getSimpleName());
-//            keyBuilder.append(".");
-//            keyBuilder.append(method.getName());
-//            for (Object param : params) {
-//                keyBuilder.append("." + String.valueOf(param));
-//            }
-//            String redisKey = keyBuilder.toString();
-//            log.info("生成redisKey：[{}]", redisKey);
-//            return redisKey;
-//        };
-//    }
-
     /**
      * Spring提供的redis操作模板，定义序列化方式
      *
-     * @param redisConnectionFactory
+     * @param factory
      * @return
      */
     @Bean
@@ -67,14 +45,13 @@ public class CacheConfiguration extends CachingConfigurerSupport {
         log.info("发现客户端的redis配置，加载redis实现：[{}]", RedisTemplate.class.getName());
         RedisTemplate<Object, Object> templateFor = new RedisTemplate<Object, Object>();
         templateFor.setConnectionFactory(factory);
-        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
+        //        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
         GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
 
         //设置String结构的key序列化方式
         templateFor.setKeySerializer(new StringRedisSerializer());
         //设置String结构的value序列化方式
         templateFor.setValueSerializer(genericJackson2JsonRedisSerializer);
-        //【知识点】，注意这里要使用 Jackson2JsonRedisSerializer 入参为Object类型，因为hkey可能是任何类型的，使用其他的序列化工具，会报类型转换错误
         //设置hash结构的value序列化方式
         templateFor.setHashKeySerializer(new Jackson2JsonRedisSerializer<Object>(Object.class));
         //设置hash结构的key序列化方式
@@ -98,9 +75,7 @@ public class CacheConfiguration extends CachingConfigurerSupport {
 
         //初始化一个RedisCacheWriter
         RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisTemplate.getConnectionFactory());
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig()
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));//设置序列化
+        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer)).serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));//设置序列化
         //设置默认超过期时间是30秒
         redisCacheConfiguration.entryTtl(Duration.ofSeconds(30));
         //初始化RedisCacheManager

@@ -15,6 +15,8 @@ import java.util.Map;
  */
 public interface BaseService<T> {
 
+    List<T> findAll();
+
     /**
      * 查询所有实体信息
      *
@@ -30,6 +32,16 @@ public interface BaseService<T> {
      */
     List<Map<String, Object>> findAll(QueryHelper queryHelper, Map<String, Object> param);
 
+
+    /**
+     * 自定义查询所有实体
+     *
+     * @param queryHelper sql拼装器
+     * @param param       查询参数
+     * @return
+     */
+    List<T> findAllEntityCustom(QueryHelper queryHelper, Map<String, Object> param);
+
     /**
      * 添加单个实体
      *
@@ -40,8 +52,7 @@ public interface BaseService<T> {
     /**
      * 物理删除实体
      *
-     * @param id         实体ID
-     * @param entityType 实体类型
+     * @param id 实体ID
      */
     void delete(Serializable id);
 

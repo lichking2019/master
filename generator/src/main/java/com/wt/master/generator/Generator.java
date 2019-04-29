@@ -34,7 +34,7 @@ public class Generator {
     }
 
     private static Object getTableInfo(String tableName){
-//        getJdbcTemplate().query()
+        //        getJdbcTemplate().query()
         return null;
     }
 

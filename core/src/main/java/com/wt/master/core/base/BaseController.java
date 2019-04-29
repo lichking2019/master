@@ -3,6 +3,7 @@ package com.wt.master.core.base;
 import com.wt.master.core.request.HttpResultEntity;
 import com.wt.master.core.request.HttpResultHandler;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.io.Serializable;
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.List;
  * @author lichking2019@aliyun.com
  * @date Apr 14, 2019 at 9:27:11 PM
  */
+
 public abstract class BaseController<T, S extends BaseService<T>> {
 
     /**
@@ -23,9 +25,14 @@ public abstract class BaseController<T, S extends BaseService<T>> {
     protected abstract S getService();
 
 
-    @GetMapping(value = "/findAll")
-    public HttpResultEntity findAll(@RequestBody T entity) {
+    @GetMapping(value = "/findByCondition")
+    public HttpResultEntity findByCondition(@RequestBody T entity) {
         return getSuccessResult(getService().findAll(entity));
+    }
+
+    @GetMapping(value = "/findAll")
+    public HttpResultEntity findAll(){
+        return getSuccessResult(getService().findAll());
     }
 
     @PostMapping(value = "/add")

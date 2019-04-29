@@ -15,7 +15,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
  * http请求编码处理
  *
  * @author lichking2019@aliyun.com
- * @date Apr 14, 2019 at 9:31:10 PM
+ * @date Apr 29, 2019 at 3:36:30 PM
  */
 
 @Configuration
@@ -30,7 +30,6 @@ public class HttpEncodingAutoConfiguration {
     private HttpEncodingProperties httpEncodingProperties;
 
     @Bean
-    //当容器中，没有这个Bean得时候，才创建这个Bean
     @ConditionalOnMissingBean
     public CharacterEncodingFilter characterEncodingFilter(){
         CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
