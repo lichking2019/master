@@ -48,10 +48,4 @@ public class CrossDomainConfiguration {
         source.registerCorsConfiguration("/**", buildConfig(systemConfigProperties));
         return new CorsFilter(source);
     }
-
-    @Bean
-    @ConfigurationProperties(prefix = "com.wt.framework.config")
-    public SystemConfigProperties systemConfigProperties() {
-        return new SystemConfigProperties();
-    }
 }

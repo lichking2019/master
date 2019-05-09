@@ -12,6 +12,7 @@ import com.wt.master.core.common.utils.SpringPropertyUtils;
 import com.wt.master.core.datasource.DynamicDataSourceRegister;
 import com.wt.master.core.property.DataPoolDruidProperties;
 import com.wt.master.core.property.HttpEncodingProperties;
+import com.wt.master.core.property.SystemConfigProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
@@ -105,5 +106,15 @@ public class CommonApplicationContextConfiguration {
         //添加不需要忽略的格式信息
         filterRegistrationBean.addInitParameter("exclusions", druidPoolConfig.getExclusions());
         return filterRegistrationBean;
+    }
+
+    /**
+     * @ConfigurationProperties 应用在方法上，那么就可以自动将yml中的配置赋值到java对象中
+     * @return
+     */
+    @Bean
+    @ConfigurationProperties(prefix = "com.wt.framework.config")
+    public SystemConfigProperties systemConfigProperties() {
+        return new SystemConfigProperties();
     }
 }
