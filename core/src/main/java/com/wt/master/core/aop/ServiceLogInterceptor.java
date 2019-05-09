@@ -33,7 +33,7 @@ public class ServiceLogInterceptor {
     /**
      * 请求拦截
      *
-     * @param proceedingJoinPoint
+     * @param proceedingJoinPoint 连接点
      */
     @Around(value = "@within(org.springframework.stereotype.Service)")
     public Object serviceLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
@@ -45,19 +45,11 @@ public class ServiceLogInterceptor {
         String methodName = className + "$" + method.getName();
 
         Object[] args = proceedingJoinPoint.getArgs();
-        log.info("\n ★{内容:[请求参数统计],方法名:[{}]" +
-                ",参数信息:[{}]}★ \n", methodName, JSON.toJSONString(args));
-//        try {
+        log.info("\n ★{内容:[请求参数统计],方法名:[{}]" + ",参数信息:[{}]}★ \n", methodName, JSON.toJSONString(args));
         Object result = proceedingJoinPoint.proceed();
-        log.info("\n ★{内容:[耗时统计],方法名:[{}],耗时:[{}毫秒]}★ \n", methodName,
-                System.currentTimeMillis() - timeConsuming.get());
+        log.info("\n ★{内容:[耗时统计],方法名:[{}],耗时:[{}毫秒]}★ \n", methodName, System.currentTimeMillis() - timeConsuming.get());
         //防止内存泄露
         timeConsuming.remove();
         return result;
-//        } catch (Throwable throwable) {
-//            log.error("系统异常，方法名：{}，异常信息：{}", methodName, throwable.getMessage());
-//            throwable.printStackTrace();
-//        }
-//        return null;
     }
 }

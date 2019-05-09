@@ -9,11 +9,14 @@
       - service抽象，为业务模块提供通用的业务逻辑，如增、删、改、查等
       - mapper抽象，为业务模块提供通用的持久化逻辑，如增、删、改、查等。通过反射技术结合Mybatis的注解，提供通用的SQL
          - 对mysql的支持
-         - 对mongodb的支持
+         - 对mongodb的支持（支持继承和灵活性较高的组合方式）
       - entity抽象，定义通用的字段，如创建人、创建时间、修改人、修改时间、删除标识等
    - 通用工具
       - Spring上下文工具
       - Spring属性文件工具
+      - 随机数生成工具
+      - UUID生成工具
+      - 日期工具类
    - 配置
       - Http请求过滤器条件注入，根据配置文件中定义的spring.http.encoding的配置，动态创建CharacterEncodingFilter
       - 通用配置
@@ -28,6 +31,7 @@
    - 缓存
       - 将redis、ehcache的配置，抽象到框架中
       - 结合Springboot的条件注解，判断只有当配置文件中定义了响应的缓存，对应的配置才会加载，使用com.wt.framework.config.cache.enable[true|false]|type[redis|ehcache]
+   - json处理工具
 - j2ee 依赖管理，添加必要的web项目依赖
 - root maven构建方式定义
 - version 管理依赖的版本
