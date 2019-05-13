@@ -101,13 +101,14 @@ public class SqlParamReflectAdapter {
 
     /**
      * 设置实体主键的值
+     *
      * @param entity
      */
-    public static void setPrimeryKey(Object entity,String value){
+    public static void setPrimeryKey(Object entity, String value) {
         Field idField = getClassPropertyUnderAnnotation(entity.getClass(), Id.class);
         try {
             idField.setAccessible(true);
-            idField.set(entity,value);
+            idField.set(entity, value);
         } catch (IllegalAccessException e) {
             // TODO: 2019-04-26 考虑异常封装
             e.printStackTrace();

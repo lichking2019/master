@@ -1,4 +1,4 @@
-package com.wt.master.generator.handler;
+package com.wt.master.generator.util;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

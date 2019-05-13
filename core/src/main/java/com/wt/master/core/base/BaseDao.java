@@ -61,6 +61,13 @@ public interface BaseDao<T> {
     void delete(Serializable id, Class<T> entityType);
 
     /**
+     * 条件删除实体
+     * @param entity
+     * @param entityType
+     */
+    void deleteByCondition(T entity,Class<T> entityType);
+
+    /**
      * 更新实体
      * @param entity 实体
      */

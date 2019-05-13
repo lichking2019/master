@@ -57,6 +57,12 @@ public interface BaseService<T> {
     void delete(Serializable id);
 
     /**
+     * 条件物理删除
+     * @param entity
+     */
+    void deleteByCondition(T entity);
+
+    /**
      * 更新实体
      *
      * @param entity 实体信息

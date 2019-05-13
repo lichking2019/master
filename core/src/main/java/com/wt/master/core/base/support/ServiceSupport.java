@@ -118,6 +118,11 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
         getMapper().delete(id,getEntityType());
     }
 
+    @Override
+    public void deleteByCondition(T entity) {
+
+    }
+
     /**
      * 更新实体
      *

@@ -17,10 +17,12 @@ import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * mybatis SQL 语句提供
  * 思路，通过反射获取实体属性及值，然后利用mybatis的SQLbuilder工具拼SQL，返回给MyBatis
+ *
  * @author lichking2019@aliyun.com
  * @date Apr 14, 2019 at 9:33:14 PM
  */
@@ -85,12 +87,13 @@ public class MapperSqlHelper {
 
     /**
      * 自定义查询
+     *
      * @param param
      * @return
      */
-    public String findAll_custom(Map<String, Object> param){
+    public String findAll_custom(Map<String, Object> param) {
         init(param);
-        QueryHelper queryHelper = (QueryHelper)param.get(MapperSupport.QUERY_HELPER);
+        QueryHelper queryHelper = (QueryHelper) param.get(MapperSupport.QUERY_HELPER);
         return queryHelper.getSQL(tableName);
     }
 
@@ -181,6 +184,30 @@ public class MapperSqlHelper {
         init(param);
         DELETE_FROM(tableName);
         WHERE(getEqualsSql(primaryKeyName, MapperSupport.ID));
+        return SQL();
+    }
+
+    /**
+     * 条件删除
+     *
+     * @param param 参数
+     * @return
+     */
+    public String deleteByCondition(Map<String, Object> param) {
+        BEGIN();
+        init(param);
+        DELETE_FROM(tableName);
+        AtomicBoolean hasValue = new AtomicBoolean(false);
+        paramMap.forEach((key, value) -> {
+            if (value != null) {
+                hasValue.set(true);
+                WHERE(getEqualsSql(key,StringUtils.join(MapperSupport.ENTITY,".",key)));
+            }
+        });
+        //避免在传入的实体，不包含任何值得时候，出现的BUG。这时候不会删除任何记录
+        if (!hasValue.get()){
+            WHERE("1=2");
+        }
         return SQL();
     }
 

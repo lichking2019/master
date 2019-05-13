@@ -36,6 +36,30 @@
 - root maven构建方式定义
 - version 管理依赖的版本
 
+- 创建表的公共字段
+   ```
+   alter table FanKpiT
+      	add founderId varchar(36) null comment '创建人ID';
+      
+      alter table FanKpiT
+      	add founderName varchar(50) null comment '创建人姓名';
+      
+      alter table FanKpiT
+      	add createDateTime datetime null comment '创建时间';
+      
+      alter table FanKpiT
+      	add modifierId datetime null comment '修改人ID';
+      
+      alter table FanKpiT
+      	add modifierName varchar(50) null comment '修改人姓名';
+      
+      alter table FanKpiT
+      	add modifyDateTime datetime null comment '修改时间';
+      
+      alter table FanKpiT
+      	add deleteFlag tinyint default 0 null comment '删除标识';
+   ```
+
 - 配置
    ```
    com:

@@ -1,6 +1,7 @@
 package com.wt.master.core.base.support;
 
 import com.wt.master.core.base.BaseDao;
+import com.wt.master.core.base.BaseEntity;
 import com.wt.master.core.helper.MapperSqlHelper;
 import com.wt.master.core.helper.QueryHelper;
 import org.apache.ibatis.annotations.*;
@@ -71,6 +72,15 @@ public interface MapperSupport<T> extends BaseDao<T> {
     void delete(@Param(ID) Serializable id, @Param(ENTITYTYPE) Class<T> entityType);
 
     /**
+     * 条件删除实体
+     *
+     * @param entity     实体
+     * @param entityType 实体类型
+     */
+    @DeleteProvider(type = MapperSqlHelper.class, method = "deleteByCondition")
+    void deleteByCondition(@Param(ENTITY) T entity, @Param(ENTITYTYPE) Class<T> entityType);
+
+    /**
      * 更新实体
      *
      * @param securityUser 实体信息
@@ -106,6 +116,5 @@ public interface MapperSupport<T> extends BaseDao<T> {
     @Override
     @UpdateProvider(type = MapperSqlHelper.class, method = "logicDelete")
     int logicDelete(@Param(ID) Serializable entityId, @Param(ENTITYTYPE) Class<T> entityType);
-
 
 }

@@ -89,6 +89,12 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
     }
 
     @Override
+    // TODO: 2019-05-13 二期实现
+    public void deleteByCondition(T entity, Class<T> entityType) {
+        throw new RuntimeException("等待实现");
+    }
+
+    @Override
     public void update(T entity) {
         init(entity);
         Object idValue = getPrimaryKeyValue(entity);
@@ -110,7 +116,7 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
     @Override
     public T findById(Serializable entityId, Class<T> entityType) {
         Query query = new Query(Criteria.where("id").is(entityId));
-        return getMongoTemplate().findOne(query,getEntityType());
+        return getMongoTemplate().findOne(query, getEntityType());
     }
 
     @Override
