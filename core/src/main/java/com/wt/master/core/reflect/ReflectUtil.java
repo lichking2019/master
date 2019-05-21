@@ -1,5 +1,6 @@
 package com.wt.master.core.reflect;
 
+import com.wt.master.core.annotation.Transparent;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -53,14 +54,17 @@ public class ReflectUtil {
         Map<String, Object> result = new HashMap<>();
         List<Field> allField = getAllField(entity);
         for (Field field : allField) {
-            //打开权限
-            field.setAccessible(true);
-            try {
-                Object value = field.get(entity);
-                result.put(field.getName(), value);
-            } catch (IllegalAccessException e) {
-                // TODO: 2019-04-10 异常处理
-                e.printStackTrace();
+            boolean annotationPresent = field.isAnnotationPresent(Transparent.class);
+            if(!annotationPresent){
+                //打开权限
+                field.setAccessible(true);
+                try {
+                    Object value = field.get(entity);
+                    result.put(field.getName(), value);
+                } catch (IllegalAccessException e) {
+                    // TODO: 2019-04-10 异常处理
+                    e.printStackTrace();
+                }
             }
         }
         return result;

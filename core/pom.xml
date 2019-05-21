@@ -8,6 +8,7 @@
         <groupId>com.wt.master</groupId>
         <artifactId>j2ee</artifactId>
         <version>1.0-SNAPSHOT</version>
+        <relativePath>../j2ee/pom.xml</relativePath>
     </parent>
 
     <groupId>com.wt.master</groupId>

@@ -47,8 +47,8 @@ public abstract class BaseController<T, S extends BaseService<T>> {
     }
 
     @PutMapping(value = "/update")
-    public HttpResultEntity update(@RequestBody T securityUser) {
-        getService().update(securityUser);
+    public HttpResultEntity update(@RequestBody T entity) {
+        getService().update(entity);
         return getSuccessResult();
     }
 

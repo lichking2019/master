@@ -29,7 +29,9 @@ public class QueryHelper {
      * @return
      */
     public QueryHelper LEFT_JOIN(String queryColumn,String joinSql){
-        queryColumnList.add(queryColumn);
+        if(StringUtils.isNotBlank(queryColumn)){
+            queryColumnList.add(queryColumn);
+        }
         LEFT_OUTER_JOIN(joinSql);
         return this;
     }
@@ -89,10 +91,18 @@ public class QueryHelper {
      * @return
      */
     public String getSQL(String table){
+        StringBuilder selectSql = new StringBuilder();
+
+        selectSql.append("t.*");
+        for (String selectColumn : this.queryColumnList) {
+            selectSql.append(",");
+            selectSql.append(selectColumn);
+        }
+
         if(distinct){
-            SELECT_DISTINCT("t.*");
+            SELECT_DISTINCT(selectSql.toString());
         }else{
-            SELECT("t.*");
+            SELECT(selectSql.toString());
         }
         FROM(StringUtils.join(table," t"));
         return SQL();
