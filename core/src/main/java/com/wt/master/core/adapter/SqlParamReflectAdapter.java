@@ -5,6 +5,7 @@ import com.wt.master.core.annotation.Table;
 
 import static com.wt.master.core.reflect.ReflectUtil.*;
 
+import com.wt.master.core.exception.BaseErrorException;
 import org.springframework.util.Assert;
 
 import java.io.Serializable;
@@ -24,7 +25,13 @@ public class SqlParamReflectAdapter {
      * 字段传输对象
      */
     static class FieldDto {
+        /**
+         * 字段名称
+         */
         private String fieldName;
+        /**
+         * 字段值
+         */
         private Object fieldValue;
 
         public FieldDto() {
@@ -56,7 +63,9 @@ public class SqlParamReflectAdapter {
     public static FieldDto getEntityIdField(Object entity) {
         FieldDto fieldDto = new FieldDto();
         Map<String, Object> param = getParameterValueOnAnnotation(entity, Id.class);
-        Assert.isTrue(param.size() == 1, String.format("类：%s 配置了多个@Id注解，或未配置@Id注解", entity.getClass().getSimpleName()));
+        if (param.size() == 0) {
+            throw new BaseErrorException(String.format("实体%s未配置@Id注解！", entity.getClass().getName()));
+        }
         param.forEach((k, v) -> {
             fieldDto.setFieldName(k);
             fieldDto.setFieldValue(v);
@@ -65,7 +74,7 @@ public class SqlParamReflectAdapter {
     }
 
     /**
-     * 获取主键名称
+     * 获取类型的主键名称
      *
      * @param entityType 实体类型
      * @return 主键名称
@@ -76,33 +85,33 @@ public class SqlParamReflectAdapter {
         return idAnnotation.value();
     }
 
+    /**
+     * 获取实体主键的值
+     *
+     * @param entity
+     * @return
+     */
     public static Object getPrimaryKeyValue(Object entity) {
-        Field idField = getClassPropertyUnderAnnotation(entity.getClass(), Id.class);
-        try {
-            idField.setAccessible(true);
-            return idField.get(entity);
-        } catch (IllegalAccessException e) {
-            // TODO: 2019-04-25 考虑异常封装
-            e.printStackTrace();
-        }
-        return null;
+        FieldDto entityIdField = getEntityIdField(entity);
+        return entityIdField.getFieldValue();
     }
 
     /**
-     * 获取实体对应的数据库表名
+     * 获取类型对应的数据库表名
      *
-     * @param entityClass 实体类型
+     * @param type 类型
      * @return
      */
-    public static String getTableName(Class entity) {
-        Table classAnnotation = getClassAnnotation(entity, Table.class);
+    public static String getTableName(Class type) {
+        Table classAnnotation = getClassAnnotation(type, Table.class);
         return classAnnotation.tableName();
     }
 
     /**
      * 设置实体主键的值
      *
-     * @param entity
+     * @param entity 实体
+     * @param value  值
      */
     public static void setPrimeryKey(Object entity, String value) {
         Field idField = getClassPropertyUnderAnnotation(entity.getClass(), Id.class);
@@ -110,8 +119,7 @@ public class SqlParamReflectAdapter {
             idField.setAccessible(true);
             idField.set(entity, value);
         } catch (IllegalAccessException e) {
-            // TODO: 2019-04-26 考虑异常封装
-            e.printStackTrace();
+            throw new BaseErrorException("设置主键值异常!");
         }
     }
 }

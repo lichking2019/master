@@ -107,14 +107,4 @@ public class CommonApplicationContextConfiguration {
         filterRegistrationBean.addInitParameter("exclusions", druidPoolConfig.getExclusions());
         return filterRegistrationBean;
     }
-
-    /**
-     * @ConfigurationProperties 应用在方法上，那么就可以自动将yml中的配置赋值到java对象中
-     * @return
-     */
-    @Bean
-    @ConfigurationProperties(prefix = "com.wt.framework.config")
-    public SystemConfigProperties systemConfigProperties() {
-        return new SystemConfigProperties();
-    }
 }

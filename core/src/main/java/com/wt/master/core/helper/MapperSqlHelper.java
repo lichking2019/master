@@ -78,7 +78,8 @@ public class MapperSqlHelper {
         FROM(tableName + " t");
         paramMap.forEach((column, value) -> {
             if (value != null) {
-                WHERE(getEqualsSql(StringUtils.join("t.", column), StringUtils.join(MapperSupport.ENTITY, ".", column)));
+                WHERE(getEqualsSql(StringUtils.join("t.", column), StringUtils.join(MapperSupport.ENTITY, ".",
+                        column)));
             }
         });
         WHERE("t.deleteFlag=false");
@@ -165,7 +166,8 @@ public class MapperSqlHelper {
                 if (isIgnore(field)) {
                     continue;
                 }
-                VALUES_SINGLE_RECORD(getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[", i, "]", ".", field.getName())));
+                VALUES_SINGLE_RECORD(getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[", i, "]", ".",
+                        field.getName())));
             }
             GENERATESINGLERECORDVALUES();
         }
@@ -201,11 +203,11 @@ public class MapperSqlHelper {
         paramMap.forEach((key, value) -> {
             if (value != null) {
                 hasValue.set(true);
-                WHERE(getEqualsSql(key,StringUtils.join(MapperSupport.ENTITY,".",key)));
+                WHERE(getEqualsSql(key, StringUtils.join(MapperSupport.ENTITY, ".", key)));
             }
         });
         //避免在传入的实体，不包含任何值得时候，出现的BUG。这时候不会删除任何记录
-        if (!hasValue.get()){
+        if (!hasValue.get()) {
             WHERE("1=2");
         }
         return SQL();
@@ -261,7 +263,8 @@ public class MapperSqlHelper {
         for (int i = 0; i < entityList.size(); i++) {
             for (Field field : fieldList) {
                 if (field.isAnnotationPresent(Id.class)) {
-                    keyValues.add(getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[" + i + "]" + "." + field.getName())));
+                    keyValues.add(getEqualsSql(StringUtils.join(MapperSupport.ENTITIES,
+                            "[" + i + "]" + "." + field.getName())));
                 }
             }
         }
@@ -271,8 +274,10 @@ public class MapperSqlHelper {
             for (int i = 0; i < entityList.size(); i++) {
                 StringBuilder whenSQL = new StringBuilder();
                 whenSQL.append("WHEN ");
-                whenSQL.append(getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[", i, "]", ".", primaryKeyName)) + " ");
-                whenSQL.append(StringUtils.join("THEN ", getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[", i, "]", ".", field.getName()))));
+                whenSQL.append(getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[", i, "]", ".",
+                        primaryKeyName)) + " ");
+                whenSQL.append(StringUtils.join("THEN ", getEqualsSql(StringUtils.join(MapperSupport.ENTITIES, "[", i
+                        , "]", ".", field.getName()))));
                 buildCaseSQL(caseSQL, whenSQL.toString());
             }
         }

@@ -35,7 +35,8 @@ public class ServiceLogInterceptor {
      *
      * @param proceedingJoinPoint 连接点
      */
-    @Around(value = "@within(org.springframework.stereotype.Service)")
+    // TODO: 2019-05-23 service之间相互调用的时候，会出现空指针
+//    @Around(value = "@within(org.springframework.stereotype.Service)")
     public Object serviceLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         //方法开始时间戳
         timeConsuming.set(System.currentTimeMillis());

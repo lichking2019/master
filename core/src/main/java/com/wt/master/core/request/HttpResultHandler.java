@@ -1,5 +1,7 @@
 package com.wt.master.core.request;
 
+import com.wt.master.core.exception.ExceptionBody;
+
 /**
  * 返回结果处理类
  *
@@ -18,6 +20,14 @@ public class HttpResultHandler {
         return new HttpResultEntity(errorCode.code,errorCode.message,result);
     }
 
+    /**
+     * 根据异常对象，构建返回结果
+     * @param exceptionBody
+     * @return
+     */
+    public static HttpResultEntity getResultEntity(ExceptionBody exceptionBody){
+        return new HttpResultEntity(exceptionBody.getErrorCode(),exceptionBody.getErrorMessage(),null);
+    }
 
     public enum ErrorCode{
         SUCCESS("0","SUCCESS")

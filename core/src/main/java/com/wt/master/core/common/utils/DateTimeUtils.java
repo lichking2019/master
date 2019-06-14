@@ -82,6 +82,21 @@ public class DateTimeUtils {
         return simpleDateFormat.format(calendar.getTime());
     }
 
+    /**
+     * 获取月份的格式化结果，保持原有格式
+     */
+    public static String getOrignalMonthFormat(String yearAndMonth,String format){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM");
+        try {
+            Date parse = simpleDateFormat.parse(yearAndMonth);
+            SimpleDateFormat simpleDateFormat1 = new SimpleDateFormat(format);
+            return simpleDateFormat1.format(parse);
+        } catch (ParseException e) {
+            // TODO: 2019-05-24 异常封装
+            throw new RuntimeException("日期格式化出错");
+        }
+    }
+
 
     private static String[] getYearAndMonth(String yearAndMonth) {
         return yearAndMonth.split("-");

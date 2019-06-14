@@ -23,6 +23,11 @@ public class ControllerExceptionHandleAdvice {
     public HttpResultEntity handler(HttpServletRequest req, HttpServletResponse res, Exception e){
         log.info("请求url:{},contentType:{}",req.getRequestURL(),req.getContentType());
         log.error("请求异常:{}",e);
+
+        if(e instanceof BaseAccidentException){
+            BaseAccidentException exception = (BaseAccidentException)e;
+            return HttpResultHandler.getResultEntity(exception.getExceptionBody());
+        }
         return HttpResultHandler.getResultEntity(HttpResultHandler.ErrorCode.ERROR,e.getMessage());
     }
 }

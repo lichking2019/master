@@ -24,6 +24,8 @@ public class CustomDoubleSerialize extends JsonSerializer<Double> {
         if(value != null) {
 //            gen.writeString(df.format(value));
             gen.writeString(String.format("%.2f",value));
+        }else{
+            gen.writeString(String.format("%.2f","0.0"));
         }
     }
 

@@ -1,6 +1,8 @@
 package com.wt.master.core.reflect;
 
 import com.wt.master.core.annotation.Transparent;
+import com.wt.master.core.exception.BaseErrorException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 import java.io.File;
@@ -54,13 +56,34 @@ public class ReflectUtil {
         Map<String, Object> result = new HashMap<>();
         List<Field> allField = getAllField(entity);
         for (Field field : allField) {
-            boolean annotationPresent = field.isAnnotationPresent(Transparent.class);
-            if(!annotationPresent){
-                //打开权限
+            //打开权限
+            field.setAccessible(true);
+            try {
+                Object value = field.get(entity);
+                result.put(field.getName(), value);
+            } catch (IllegalAccessException e) {
+                // TODO: 2019-04-10 异常处理
+                e.printStackTrace();
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 获取对象某一个属性的值
+     *
+     * @param object
+     * @return
+     */
+    public static Object getValueOfProperty(Object object, String property) {
+        List<Field> allField = getAllField(object);
+        Object result = null;
+        for (Field field : allField) {
+            if (field.getName().equals(property)) {
                 field.setAccessible(true);
                 try {
-                    Object value = field.get(entity);
-                    result.put(field.getName(), value);
+                    result = field.get(object);
+                    break;
                 } catch (IllegalAccessException e) {
                     // TODO: 2019-04-10 异常处理
                     e.printStackTrace();
@@ -103,19 +126,23 @@ public class ReflectUtil {
      * @return
      */
     public static <T> T getClassAnnotation(Class entityType, Class annotationType) {
-        Assert.isTrue(entityType.isAnnotationPresent(annotationType), String.format("类：%s 未配置@%s注解", entityType.getSimpleName(), annotationType.getSimpleName()));
+        if (!entityType.isAnnotationPresent(annotationType)) {
+            throw new BaseErrorException(String.format("类：%s 未配置@%s注解", entityType.getName(),
+                    annotationType.getSimpleName()));
+        }
         return (T) entityType.getAnnotation(annotationType);
     }
 
     /**
      * 获取实体类型的属性当中，具备指定注解类型的注解
-     * @param entityType 实体类型
+     *
+     * @param entityType     实体类型
      * @param annotationType 注解类型
-     * @param <T> 注解类型
+     * @param <T>            注解类型
      * @return 注解
      */
-    public static <T> T getFieldAnnotation(Field field,Class annotationType){
-        return (T)field.getAnnotation(annotationType);
+    public static <T> T getFieldAnnotation(Field field, Class annotationType) {
+        return (T) field.getAnnotation(annotationType);
     }
 
     /**
@@ -133,6 +160,10 @@ public class ReflectUtil {
                 result = field;
                 break;
             }
+        }
+        if (result == null) {
+            throw new BaseErrorException(StringUtils.join(entityType.getName(), "中的属性，未配置",
+                    annotationType.getSimpleName(), "注解！"));
         }
         return result;
     }

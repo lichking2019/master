@@ -42,7 +42,21 @@ public interface MapperSupport<T> extends BaseDao<T> {
      */
     @Override
     @SelectProvider(type = MapperSqlHelper.class, method = "findAll_custom")
-    List<Map<String, Object>> findallCustom(@Param(QUERY_HELPER) QueryHelper queryHelper, @Param(PARAM) Map<String, Object> param, @Param(ENTITYTYPE) Class<T> enrityType);
+    List<T> findAllEntityCustom(@Param(QUERY_HELPER) QueryHelper queryHelper, @Param(PARAM) Map<String, Object> param
+            , @Param(ENTITYTYPE) Class<T> enrityType);
+
+
+    /**
+     * 自定义查询
+     *
+     * @param queryHelper 查询辅助类
+     * @param enrityType  实体类型
+     * @return
+     */
+    @Override
+    @SelectProvider(type = MapperSqlHelper.class, method = "findAll_custom")
+    List<Map<String, Object>> findallCustom(@Param(QUERY_HELPER) QueryHelper queryHelper, @Param(PARAM) Map<String,
+            Object> param, @Param(ENTITYTYPE) Class<T> enrityType);
 
     /**
      * 添加实体

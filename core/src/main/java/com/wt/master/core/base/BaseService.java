@@ -15,11 +15,17 @@ import java.util.Map;
  */
 public interface BaseService<T> {
 
+    /**
+     * 查询所有的数据，不包含逻辑删除数据
+     *
+     * @return
+     */
     List<T> findAll();
 
     /**
-     * 查询所有实体信息
+     * 查询满足条件的实体集合
      *
+     * @param entity 实体对象，在查询的时候，
      * @return 实体集合
      */
     List<T> findAll(T entity);
@@ -58,6 +64,7 @@ public interface BaseService<T> {
 
     /**
      * 条件物理删除
+     *
      * @param entity
      */
     void deleteByCondition(T entity);

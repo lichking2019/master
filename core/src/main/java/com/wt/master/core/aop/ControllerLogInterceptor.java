@@ -1,5 +1,6 @@
 package com.wt.master.core.aop;
 
+import com.wt.master.core.exception.BaseAccidentException;
 import com.wt.master.core.request.HttpResultEntity;
 import com.wt.master.core.request.HttpResultHandler;
 import lombok.extern.slf4j.Slf4j;
@@ -34,8 +35,12 @@ public class ControllerLogInterceptor {
             HttpResultEntity result = (HttpResultEntity) proceedingJoinPoint.proceed();
             return result;
         } catch (Throwable throwable) {
-            log.error("系统异常，方法名：{}，异常信息：{}", methodName, throwable.getMessage());
-            return HttpResultHandler.getResultEntity(HttpResultHandler.ErrorCode.ERROR, throwable.getMessage());
+            log.error("系统异常，方法名：{}，异常信息：{}", methodName, throwable);
+            if(throwable instanceof BaseAccidentException){
+                BaseAccidentException exception = (BaseAccidentException)throwable;
+                return HttpResultHandler.getResultEntity(exception.getExceptionBody());
+            }
+            return HttpResultHandler.getResultEntity(HttpResultHandler.ErrorCode.ERROR, throwable);
         }
     }
 }
