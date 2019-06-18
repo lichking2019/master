@@ -11,9 +11,10 @@ import java.util.List;
 public class StringUtils {
     /**
      * 将字符串列表，转换为逗号分割的字符串，每个部分带有双引号
+     *
      * @return
      */
-    public static String convertToDivisionByComma(List<String> data){
+    public static String convertToDivisionByComma(List<String> data) {
         StringBuilder result = new StringBuilder();
 
         for (int i = 0; i < data.size(); i++) {
@@ -29,10 +30,11 @@ public class StringUtils {
 
     /**
      * 将字符串列表，转换为逗号分割的字符串，每个部分不带双引号
+     *
      * @param data
      * @return
      */
-    public static String convertToDivisionByCommaNoQuotation(List<String> data){
+    public static String convertToDivisionByCommaNoQuotation(List<String> data) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < data.size(); i++) {
             if (i > 0) {

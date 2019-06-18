@@ -13,7 +13,7 @@ import java.util.Date;
  * @date Apr 14, 2019 at 9:27:48 PM
  */
 @Data
-public class BaseEntity implements Serializable ,Cloneable{
+public class BaseEntity implements Serializable, Cloneable {
     /**
      * 创建人ID
      */

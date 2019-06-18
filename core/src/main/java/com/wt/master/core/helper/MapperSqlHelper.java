@@ -115,6 +115,35 @@ public class MapperSqlHelper {
     }
 
     /**
+     *
+     * @param param
+     * @return
+     */
+    public String selectCount(Map<String,Object> param){
+        init(param);
+        QueryHelper queryHelper = (QueryHelper) param.get(MapperSupport.QUERY_HELPER);
+        String querySQL = queryHelper.getSQL(tableName);
+        StringBuilder countSQLBuilder = new StringBuilder();
+        countSQLBuilder.append("select count(*)");
+        countSQLBuilder.append("from (");
+        countSQLBuilder.append(querySQL);
+        countSQLBuilder.append(") as countTable");
+        return countSQLBuilder.toString();
+    }
+
+    /**
+     * 获取分页数据
+     * @param param
+     * @return
+     */
+    public String getPaggingData(Map<String,Object> param){
+        init(param);
+        QueryHelper queryHelper = (QueryHelper) param.get(MapperSupport.QUERY_HELPER);
+        return queryHelper.getSQL(tableName);
+    }
+
+
+    /**
      * 插入数据
      *
      * @param param 参数
@@ -131,7 +160,6 @@ public class MapperSqlHelper {
             }
         });
         return SQL();
-
     }
 
     /**
@@ -256,7 +284,6 @@ public class MapperSqlHelper {
     public String updateBatch(Map<String, Object> param) {
         BEGIN();
         init(param);
-
         List<String> keyValues = new ArrayList<>();
         List<Field> fieldList = getAllField(entityType);
         List entityList = (List) param.get(MapperSupport.ENTITIES);

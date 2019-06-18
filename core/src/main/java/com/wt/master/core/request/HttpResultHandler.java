@@ -31,7 +31,7 @@ public class HttpResultHandler {
 
     public enum ErrorCode{
         SUCCESS("0","SUCCESS")
-        ,ERROR("1","ERROR");
+        ,ERROR("1","网络异常，请联系管理员");
         private String code;
         private String message;
 

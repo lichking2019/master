@@ -1,6 +1,7 @@
 package com.wt.master.core.base;
 
 import com.wt.master.core.helper.QueryHelper;
+import com.wt.master.core.page.QueryResult;
 
 import java.io.Serializable;
 import java.util.List;
@@ -47,6 +48,15 @@ public interface BaseService<T> {
      * @return
      */
     List<T> findAllEntityCustom(QueryHelper queryHelper, Map<String, Object> param);
+
+    /**
+     * 分页查询
+     *
+     * @param queryHelper 查询辅助对象
+     * @param param       查询参数
+     * @return
+     */
+    QueryResult<T> getPaggingData(QueryHelper queryHelper, Map<String, Object> param);
 
     /**
      * 添加单个实体

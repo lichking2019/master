@@ -25,6 +25,7 @@ public class DynamicDataSourceContextHolder {
 
     /**
      * 设置数据源
+     *
      * @param dataSourceType
      */
     public static void setDataSourceType(String dataSourceType) {
@@ -33,6 +34,7 @@ public class DynamicDataSourceContextHolder {
 
     /**
      * 获取数据源
+     *
      * @return
      */
     public static String getDataSourceType() {
@@ -48,6 +50,7 @@ public class DynamicDataSourceContextHolder {
 
     /**
      * 判断当前数据源是否存在
+     *
      * @param dataSourceId
      * @return
      */

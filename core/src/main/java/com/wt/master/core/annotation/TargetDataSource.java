@@ -12,6 +12,9 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface TargetDataSource {
-
+    /**
+     * 数据源名称
+     * @return
+     */
     String name();
 }

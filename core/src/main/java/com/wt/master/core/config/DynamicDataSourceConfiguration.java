@@ -30,7 +30,7 @@ public class DynamicDataSourceConfiguration {
     @Bean
     @ConditionalOnMissingBean(DynamicDattaSourceInterceptor.class)
     public DynamicDattaSourceInterceptor dynamicDattaSourceInterceptor() {
-        log.info("配置文件中slave.enable=true,将多数据源拦截器加入到spring容器中");
+        log.info(">>>[]配置文件中slave.enable=true,将多数据源拦截器加入到spring容器中");
         return new DynamicDattaSourceInterceptor();
     }
 }

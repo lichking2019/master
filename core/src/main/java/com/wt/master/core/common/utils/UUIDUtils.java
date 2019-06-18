@@ -12,19 +12,21 @@ public class UUIDUtils {
 
     /**
      * 获取32位uuid
+     *
      * @return
      */
-    public static String getUUID32(){
+    public static String getUUID32() {
         String uuid = UUID.randomUUID().toString();
-        uuid = uuid.replace("-","");
+        uuid = uuid.replace("-", "");
         return uuid;
     }
 
     /**
      * 获取正常的UUID
+     *
      * @return
      */
-    public static String getUUID(){
+    public static String getUUID() {
         return UUID.randomUUID().toString();
     }
 }

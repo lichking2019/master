@@ -7,9 +7,13 @@ import com.wt.master.core.base.BaseService;
 import com.wt.master.core.common.utils.UUIDUtils;
 import com.wt.master.core.exception.BaseErrorException;
 import com.wt.master.core.helper.QueryHelper;
+import com.wt.master.core.page.PageHelperFactory;
+import com.wt.master.core.page.QueryResult;
+import com.wt.master.core.page.impl.DataTableResult;
+import com.wt.master.core.property.SystemConfigProperties;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -41,44 +45,31 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
         }
     }
 
-    /**
-     * 查询所有实体信息
-     *
-     * @return 实体集合
-     */
     @Override
     public List<T> findAll(T entity) {
         return getMapper().findAll(entity);
     }
 
-    /**
-     * 根据查询条件，查询所有的实体信息
-     *
-     * @param queryHelper sql辅助类
-     * @return
-     */
     @Override
     public List<Map<String, Object>> findAll(QueryHelper queryHelper, Map<String, Object> param) {
-        return getMapper().findallCustom(queryHelper, param, getEntityType());
+        return getMapper().findAllCustom(queryHelper, param, getEntityType());
     }
 
-    /**
-     * 条件查询所有实体
-     *
-     * @param queryHelper
-     * @param param
-     * @return
-     */
+    @Override
+    public QueryResult<T> getPaggingData(QueryHelper queryHelper, Map<String, Object> param) {
+        QueryResult queryResult = queryHelper.getQueryResult();
+        List<T> paggingData = getMapper().getPaggingData(queryHelper, param, getEntityType());
+        long count = getMapper().selectCount(queryHelper,param,getEntityType());
+        queryResult.setData(paggingData);
+        queryResult.setRecordsTotal(count);
+        return queryResult;
+    }
+
+    @Override
     public List<T> findAllEntityCustom(QueryHelper queryHelper, Map<String, Object> param) {
-        return getMapper().findAllEntityCustom(queryHelper, param, getEntityType());
+        return getMapper().findAll(queryHelper, param, getEntityType());
     }
 
-
-    /**
-     * 添加单个实体
-     *
-     * @param entity 实体信息
-     */
     @Override
     public void add(T entity) {
         initEntityBaseInfo(entity);
@@ -106,13 +97,6 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
         ((BaseEntity) entity).setFounderName("系统创建");
     }
 
-    /**
-     * 物理删除实体
-     *
-     * @param id         实体ID
-     * @param entityType 实体类型
-     */
-
     @Override
     public void delete(Serializable id) {
         getMapper().delete(id, getEntityType());
@@ -120,59 +104,43 @@ public abstract class ServiceSupport<T, M extends BaseDao<T>> implements BaseSer
 
     @Override
     public void deleteByCondition(T entity) {
-
+        getMapper().deleteByCondition(entity, getEntityType());
     }
 
-    /**
-     * 更新实体
-     *
-     * @param entity 实体信息
-     */
     @Override
     public void update(T entity) {
         getMapper().update(entity);
     }
 
-    /**
-     * 根据实体ID，查询实体信息
-     *
-     * @param entityId 实体ID
-     * @return
-     */
     @Override
     public T findById(Serializable entityId) {
         return getMapper().findById(entityId, getEntityType());
     }
 
-    /**
-     * 逻辑删除实体
-     *
-     * @param entityId
-     * @return 删除的实体ID
-     */
     @Override
     public int logicDelete(Serializable entityId) {
         return getMapper().logicDelete(entityId, getEntityType());
     }
 
-    /**
-     * 批量添加实体
-     *
-     * @param entityList 实体信息集合
-     */
     @Override
     public void addBatch(List<T> entityList) {
         initEntityBaseInfoBatch(entityList);
         getMapper().addBatch(entityList, getEntityType());
     }
 
-    /**
-     * 批量更新实体
-     *
-     * @param entityList 实体信息集合
-     */
     @Override
     public void updateBatch(List<T> entityList) {
         getMapper().updateBatch(entityList, getEntityType());
+    }
+
+    /**
+     * 创建结果对象
+     * @return
+     */
+    protected QueryResult newQueryResult(){
+        if(StringUtils.isBlank((String)SystemConfigProperties.getInstance().getTable().get("type"))){
+            return new DataTableResult();
+        }
+        return PageHelperFactory.create().createQueryResult();
     }
 }

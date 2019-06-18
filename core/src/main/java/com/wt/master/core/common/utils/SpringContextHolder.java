@@ -33,8 +33,6 @@ public class SpringContextHolder implements ApplicationContextAware {
     }
     public static void main(String[] args){
         List<String> a = new ArrayList<>();
-        a.add("dddd");
-        a.add("eee");
         System.out.println(a.toArray());
     }
 }

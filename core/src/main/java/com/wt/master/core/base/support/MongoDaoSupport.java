@@ -1,6 +1,7 @@
 package com.wt.master.core.base.support;
 
 import com.wt.master.core.base.BaseDao;
+import com.wt.master.core.exception.BaseErrorException;
 import com.wt.master.core.helper.QueryHelper;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -27,6 +28,11 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
      */
     private Map<String, Object> paramMap;
 
+    /**
+     * 获取实体的属性Map
+     *
+     * @param entity 实体
+     */
     private void init(T entity) {
         paramMap = getPropertyAndValue(entity);
     }
@@ -44,8 +50,7 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
      * @return
      */
     protected abstract Class<T> getEntityType();
-
-
+    
     @Override
     public List<T> findAll(T entity) {
         init(entity);
@@ -59,15 +64,16 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
     }
 
     @Override
-    public List<Map<String, Object>> findallCustom(QueryHelper queryHelper, Map<String, Object> param, Class<T> enrityType) {
-        // TODO: 2019-04-28 异常封装
-        throw new RuntimeException("mongo不支持关系型查询");
+    public List<Map<String, Object>> findAllCustom(QueryHelper queryHelper, Map<String, Object> param,
+                                                   Class<T> enrityType) {
+        // TODO: 2019-06-14 下个版本实现
+        throw new BaseErrorException("findAllCustom尚未实现");
     }
 
     @Override
-    public List<T> findAllEntityCustom(QueryHelper queryHelper, Map<String, Object> param, Class<T> enrityType) {
-        // TODO: 2019-04-28 异常封装
-        throw new RuntimeException("mongo不支持关系型查询");
+    public List<T> findAll(QueryHelper queryHelper, Map<String, Object> param, Class<T> enrityType) {
+        // TODO: 2019-06-14 下个版本实现
+        throw new BaseErrorException("findAll尚未实现");
     }
 
     @Override
@@ -89,9 +95,8 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
     }
 
     @Override
-    // TODO: 2019-05-13 二期实现
     public void deleteByCondition(T entity, Class<T> entityType) {
-        throw new RuntimeException("等待实现");
+        throw new BaseErrorException("等待实现");
     }
 
     @Override
@@ -111,6 +116,7 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
     @Override
     public void updateBatch(List<T> entityList, Class<T> entityType) {
         // TODO: 2019-04-25 下个版本实现
+        throw new BaseErrorException("updateBatch尚未实现");
     }
 
     @Override
@@ -122,7 +128,7 @@ public abstract class MongoDaoSupport<T> implements BaseDao<T> {
     @Override
     public int logicDelete(Serializable entityId, Class<T> entityType) {
         // TODO: 2019-04-25 下个版本实现
-        return 0;
+        throw new BaseErrorException("logicDelete尚未实现");
     }
 
 }

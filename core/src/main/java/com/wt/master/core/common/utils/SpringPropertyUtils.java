@@ -15,17 +15,17 @@ import java.util.Properties;
  * @date Apr 14, 2019 at 9:29:28 PM
  */
 public class SpringPropertyUtils extends PropertyPlaceholderConfigurer {
-    private static Map<String,String> properties = new HashMap<>();
+    private static Map<String, String> properties = new HashMap<>();
 
     @Override
     protected void processProperties(ConfigurableListableBeanFactory beanFactoryToProcess, Properties props) throws BeansException {
         super.processProperties(beanFactoryToProcess, props);
-        for(Object key:props.keySet()){
-            properties.put(key.toString(),props.get(key).toString());
+        for (Object key : props.keySet()) {
+            properties.put(key.toString(), props.get(key).toString());
         }
     }
 
-    public static String get(String key){
+    public static String get(String key) {
         return properties.get(key);
     }
 }

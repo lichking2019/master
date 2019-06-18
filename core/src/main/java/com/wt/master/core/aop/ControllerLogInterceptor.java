@@ -12,18 +12,26 @@ import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 import java.lang.reflect.Method;
+
 /**
  * controller层拦截器
  * 当后台处理发生异常的时候，封装异常对象返回给前台
+ *
  * @author lichking2019@aliyun.com
  * @date Apr 14, 2019 at 9:25:03 PM
  */
 @Aspect
-@Order(1)
+@Order(-1)
 @Component
 @Slf4j
 public class ControllerLogInterceptor {
 
+    /**
+     * 拦截所有发送到controller的请求
+     *
+     * @param proceedingJoinPoint
+     * @return
+     */
     @Around(value = "@within(org.springframework.web.bind.annotation.RestController)")
     public HttpResultEntity controllerLog(ProceedingJoinPoint proceedingJoinPoint) {
         MethodSignature methodSignature = (MethodSignature) proceedingJoinPoint.getSignature();
@@ -36,11 +44,11 @@ public class ControllerLogInterceptor {
             return result;
         } catch (Throwable throwable) {
             log.error("系统异常，方法名：{}，异常信息：{}", methodName, throwable);
-            if(throwable instanceof BaseAccidentException){
-                BaseAccidentException exception = (BaseAccidentException)throwable;
+            if (throwable instanceof BaseAccidentException) {
+                BaseAccidentException exception = (BaseAccidentException) throwable;
                 return HttpResultHandler.getResultEntity(exception.getExceptionBody());
             }
-            return HttpResultHandler.getResultEntity(HttpResultHandler.ErrorCode.ERROR, throwable);
+            return HttpResultHandler.getResultEntity(HttpResultHandler.ErrorCode.ERROR, null);
         }
     }
 }

@@ -22,7 +22,7 @@ import java.lang.reflect.Method;
 
 @Slf4j
 @Aspect
-@Order(2)
+@Order(1)
 @Component
 public class ServiceLogInterceptor {
     /**
@@ -36,7 +36,7 @@ public class ServiceLogInterceptor {
      * @param proceedingJoinPoint 连接点
      */
     // TODO: 2019-05-23 service之间相互调用的时候，会出现空指针
-//    @Around(value = "@within(org.springframework.stereotype.Service)")
+    @Around(value = "@within(org.springframework.stereotype.Service)")
     public Object serviceLog(ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
         //方法开始时间戳
         timeConsuming.set(System.currentTimeMillis());

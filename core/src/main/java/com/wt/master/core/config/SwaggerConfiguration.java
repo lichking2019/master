@@ -46,6 +46,7 @@ public class SwaggerConfiguration {
 
     /**
      * 重写basePackage方法，使能够实现多包访问，复制贴上去
+     *
      * @param basePackage 扫描包
      * @return
      */
@@ -54,7 +55,6 @@ public class SwaggerConfiguration {
     }
 
     /**
-     *
      * @param basePackage
      * @return
      */

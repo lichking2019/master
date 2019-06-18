@@ -40,13 +40,15 @@ public class CacheConfiguration extends CachingConfigurerSupport {
      * @return
      */
     @Bean
-    @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'.equals('redis')")
+    @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'" +
+            ".equals('redis')")
     public RedisTemplate<Object, Object> redisTemplate(JedisConnectionFactory factory) {
         log.info("发现客户端的redis配置，加载redis实现：[{}]", RedisTemplate.class.getName());
         RedisTemplate<Object, Object> templateFor = new RedisTemplate<Object, Object>();
         templateFor.setConnectionFactory(factory);
         //        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();
-        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer = new GenericJackson2JsonRedisSerializer();
+        GenericJackson2JsonRedisSerializer genericJackson2JsonRedisSerializer =
+                new GenericJackson2JsonRedisSerializer();
 
         //设置String结构的key序列化方式
         templateFor.setKeySerializer(new StringRedisSerializer());
@@ -68,14 +70,17 @@ public class CacheConfiguration extends CachingConfigurerSupport {
      */
     @Bean
     @ConditionalOnMissingBean(CacheService.class)
-    @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'.equals('redis')")
+    @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'" +
+            ".equals('redis')")
     public CacheManager redisCacheManager(RedisTemplate redisTemplate, JedisConnectionFactory factory) {
         RedisSerializer<String> redisSerializer = new StringRedisSerializer();
         Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
 
         //初始化一个RedisCacheWriter
-        RedisCacheWriter redisCacheWriter = RedisCacheWriter.nonLockingRedisCacheWriter(redisTemplate.getConnectionFactory());
-        RedisCacheConfiguration redisCacheConfiguration = RedisCacheConfiguration.defaultCacheConfig().serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer)).serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));//设置序列化
+        RedisCacheWriter redisCacheWriter =
+                RedisCacheWriter.nonLockingRedisCacheWriter(redisTemplate.getConnectionFactory());
+        RedisCacheConfiguration redisCacheConfiguration =
+                RedisCacheConfiguration.defaultCacheConfig().serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer)).serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer));//设置序列化
         //设置默认超过期时间是30秒
         redisCacheConfiguration.entryTtl(Duration.ofSeconds(30));
         //初始化RedisCacheManager
@@ -90,7 +95,8 @@ public class CacheConfiguration extends CachingConfigurerSupport {
      */
     @Bean
     @ConditionalOnMissingBean(CacheService.class)
-    @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'.equals('ehCache')")
+    @ConditionalOnExpression("${com.wt.framework.config.cache.enable}==true&&'${com.wt.framework.config.cache.type}'" +
+            ".equals('ehCache')")
     public CacheManager ehCacheManager() {
         EhCacheCacheManager ehCacheCacheManager = new EhCacheCacheManager();
         //指定ehcache配置文件
