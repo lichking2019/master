@@ -1,5 +1,7 @@
 package com.wt.master.core.common.utils;
 
+import com.wt.master.core.exception.BaseErrorException;
+
 import java.util.List;
 
 /**
@@ -43,5 +45,43 @@ public class StringUtils {
             result.append(data.get(i));
         }
         return result.toString();
+    }
+
+    /**
+     * 首字母小写
+     * @param s 目标字符串
+     * @return
+     */
+    public static String toLowerCaseFirstOne(String s){
+        if(org.apache.commons.lang3.StringUtils.isBlank(s)){
+            throw new BaseErrorException("待转换的字符串不能为空！");
+        }
+        if(Character.isLowerCase(s.charAt(0)))
+            return s;
+        else
+            return (new StringBuilder()).append(Character.toLowerCase(s.charAt(0))).append(s.substring(1)).toString();
+    }
+
+
+    /**
+     * 首字母大写
+     * @param s 目标字符串
+     * @return
+     */
+    public static String toUpperCaseFirstOne(String s){
+        if(org.apache.commons.lang3.StringUtils.isBlank(s)){
+            throw new BaseErrorException("待转换的字符串不能为空！");
+        }
+        if(Character.isUpperCase(s.charAt(0)))
+            return s;
+        else
+            return (new StringBuilder()).append(Character.toUpperCase(s.charAt(0))).append(s.substring(1)).toString();
+    }
+
+    public static void main(String[] args) {
+        String name = "";
+        String name1 = "Ceshi";
+        System.out.println(toUpperCaseFirstOne(name));
+        System.out.println(toLowerCaseFirstOne(name1));
     }
 }
