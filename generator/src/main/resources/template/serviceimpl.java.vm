@@ -1,0 +1,34 @@
+package ${packagePath}.service.impl;
+
+import ${packagePath}.dao.${moduleName}Mapper;
+import ${packagePath}.domain.${moduleName};
+import ${packagePath}.service.${moduleName}Service;
+import com.wt.master.core.base.support.ServiceSupport;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Service
+@Slf4j
+public class ${moduleName}ServiceImpl extends ServiceSupport<${moduleName}, ${moduleName}Mapper> implements ${moduleName}Service {
+
+    @Autowired
+    private ${moduleName}Mapper ${lowerModuleName}Mapper;
+
+
+    @Override
+    protected ${moduleName}Mapper getMapper() {
+        return ${lowerModuleName}Mapper;
+    }
+
+    @Override
+    protected Class<${moduleName}> getEntityType() {
+        return ${moduleName}.class;
+    }
+
+
+}

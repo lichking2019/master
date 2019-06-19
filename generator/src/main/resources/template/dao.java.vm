@@ -1,0 +1,13 @@
+package ${packagePath}.dao;
+
+import ${packagePath}.domain.${moduleName};
+import com.wt.master.core.base.support.MapperSupport;
+
+/**
+ * ${moduleNameCN}持久层
+ *
+ * @author
+ * @date
+ */
+public interface ${moduleName}Mapper extends MapperSupport<${moduleName}> {
+}

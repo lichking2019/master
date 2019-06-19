@@ -1,0 +1,13 @@
+package ${packagePath}.service;
+
+import ${packagePath}.domain.${moduleName};
+import com.wt.master.core.base.BaseService;
+
+/**
+ * ${moduleNameCN}服务层
+ *
+ * @author
+ * @date
+ */
+public interface ${moduleName}Service extends BaseService<${moduleName}> {
+}

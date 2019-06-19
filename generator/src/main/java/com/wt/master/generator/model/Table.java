@@ -52,7 +52,7 @@ public class Table {
     /**
      * 列
      */
-    public class Column{
+    public class Column {
 
         /**
          * 列名称
@@ -66,6 +66,11 @@ public class Table {
          * 注释
          */
         private String comment;
+
+        /**
+         * 键类型
+         */
+        private String column_key;
 
         public String getName() {
             return name;
@@ -90,10 +95,27 @@ public class Table {
         public void setComment(String comment) {
             this.comment = comment;
         }
+
+        public String getColumn_key() {
+            return column_key;
+        }
+
+        public void setColumn_key(String column_key) {
+            this.column_key = column_key;
+        }
     }
 
-    public enum DataType{
-        varchar("String"),datetime("Date"),init("Integer");
+    public enum DataType {
+        varchar("String" ), datetime("Date" ), init("Integer" ),tinyint("Boolean");
+
+        public String getJavaType() {
+            return javaType;
+        }
+
+        public void setJavaType(String javaType) {
+            this.javaType = javaType;
+        }
+
         private String javaType;
 
         DataType(String javaType) {

@@ -1,11 +1,12 @@
 package com.wt.master.generator.util;
 
 import com.wt.master.generator.model.Table;
-import com.wt.master.generator.util.SpringContextUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.util.CollectionUtils;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,24 +20,43 @@ public class TableInfoUtils {
 
     public static final String JDBC_TEMPLATE = "jdbcTemplate";
 
-    public static List<Table.Column> getTableColumnList(String tableName){
+    public static Table getTableColumnList(String tableName) {
         JdbcTemplate jdbcTemplate = (JdbcTemplate) SpringContextUtils.getBean(JDBC_TEMPLATE);
-        RowMapper<Map> rowMapper = new BeanPropertyRowMapper<>(Map.class);
 
-        List<Map> columns = jdbcTemplate.query(getTableStructureSql(tableName),rowMapper);
-        return TableColumnUtils.convertToColumn(columns);
+        List<Map<String,Object>> tableInfo = jdbcTemplate.queryForList(getTableStructureSql(tableName));
+        if (CollectionUtils.isEmpty(tableInfo)) {
+            throw new RuntimeException("表：" + tableName + "不存在" );
+        }
+
+        List<Map<String,Object>> columns = jdbcTemplate.queryForList(getColumnStructureSql(tableName));
+
+        return TableColumnUtils.convertToColumn(columns, tableInfo.get(0));
     }
 
     /**
      * 获取查询表字段属性的SQL
+     *
      * @param tableName 表名
      * @return
      */
-    private static String getTableStructureSql(String tableName){
+    private static String getColumnStructureSql(String tableName) {
         StringBuilder sql = new StringBuilder();
-        sql.append("select column_name, data_type,column_comment ");
-        sql.append("from information_schema.columns ");
-        sql.append("where table_name = '"+tableName+"'");
+        sql.append("select column_name, data_type,column_comment,column_key " );
+        sql.append("from information_schema.columns " );
+        sql.append("where table_name = '" + tableName + "'" );
+        return sql.toString();
+    }
+
+    /**
+     * 获取表的信息
+     * @param tableName
+     * @return
+     */
+    private static String getTableStructureSql(String tableName) {
+        StringBuilder sql = new StringBuilder();
+        sql.append("select table_name,table_comment " );
+        sql.append("from information_schema.tables " );
+        sql.append("where table_name= '" + tableName + "'" );
         return sql.toString();
     }
 
