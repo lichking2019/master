@@ -22,7 +22,7 @@
         <mysql.jdbc.version>5.1.38</mysql.jdbc.version>
         <druid.version>1.1.14</druid.version>
         <lombok.version>1.18.6</lombok.version>
-        <thrift.version>0.12.0</thrift.version>
+        <thrift.version>0.14.0</thrift.version>
         <analyze.api.version>1.0-SNAPSHOT</analyze.api.version>
         <org.aspectj.version>1.9.2</org.aspectj.version>
         <druid.version>1.1.14</druid.version>
